@@ -16,10 +16,10 @@
              05 ITEM-CONTENT PIC X(35).
        WORKING-STORAGE SECTION.
        01 TEMP-FIELDS.
-        05  ITEM-TO-DELETE          PIC 999 VALUE 1.
-        05  NUMBER-OF-TODOS         PIC 999 VALUE 0.
+        05  ITEM-TO-DELETE          PIC 9(5) VALUE 1.
+        05  NUMBER-OF-TODOS         PIC 9(5) VALUE 0.
            88 LIST-IS-EMPTY VALUE ZERO.
-        05  COUNTER                 PIC 999.
+        05  COUNTER                 PIC 9(5).
         05  TODOLISTE.
             07  TODO-ITEM PIC X(35) OCCURS 999.
        01 WS-EOF PIC A(1).
@@ -30,7 +30,6 @@
         COPY todoactions.
         COPY todoitem.
        PROCEDURE DIVISION USING TODO-ACTION NEW-TODO-ITEM.
-           DISPLAY "Taste gedruckt" UPON SYSERR
            EVALUATE TRUE
            WHEN ACTION-SHOW
               PERFORM READ-TODOLIST-FROM-FILE
@@ -45,8 +44,8 @@
           .
 
        ADD-NEW-TODO-ITEM SECTION.
-           DISPLAY NUMBER-OF-TODOS " ToDos" UPON SYSERR
-
+           PERFORM READ-TODOLIST-FROM-FILE
+           ADD 1 TO NUMBER-OF-TODOS
            MOVE NEW-TODO-ITEM
              TO TODO-ITEM (NUMBER-OF-TODOS)
 
@@ -59,7 +58,7 @@
            WRITE TDLIST-FILE FROM WS-TDLIST
            CLOSE TDLIST
 
-          EXIT.
+           EXIT.
 
        CLEAR-LIST SECTION.
           OPEN OUTPUT TDLIST
@@ -72,23 +71,19 @@
 
        DELETE-ITEM SECTION.
            PERFORM READ-TODOLIST-FROM-FILE
-           MOVE SPACES TO TODO-ITEM (ITEM-TO-DELETE)
            ADD 1 TO ITEM-TO-DELETE
-           PERFORM READ-TODOLIST-FROM-FILE
-      *     PERFORM WITH TEST AFTER
-      *       VARYING COUNTER FROM ITEM-TO-DELETE BY 1 UNTIL
-      *            COUNTER = NUMBER-OF-TODOS
-      *          MOVE TODO-ITEM(COUNTER)
-      *            TO TODO-ITEM(COUNTER - 1)
-      *     END-PERFORM
+           PERFORM WITH TEST AFTER
+             VARYING COUNTER FROM ITEM-TO-DELETE BY 1 UNTIL
+                  COUNTER = NUMBER-OF-TODOS
+                MOVE TODO-ITEM(COUNTER)
+                  TO TODO-ITEM(COUNTER - 1)
+           END-PERFORM
            OPEN OUTPUT TDLIST
+           SUBTRACT 1 FROM NUMBER-OF-TODOS GIVING NUMBER-OF-TODOS
            MOVE 0 TO COUNTER
-           DISPLAY "Die Methode wird aufgerufen"
-           DISPLAY NUMBER-OF-TODOS
            PERFORM NUMBER-OF-TODOS TIMES
                ADD 1 TO COUNTER
                WRITE TDLIST-FILE FROM TODO-ITEM(COUNTER)
-               DISPLAY "Die Schleife läuft"
            END-PERFORM
            CLOSE TDLIST
           EXIT.
@@ -101,6 +96,7 @@
                     AT END MOVE 'Y' TO WS-EOF
                     NOT AT END PERFORM DISPLAY-ITEM
                        ADD 1 TO NUMBER-OF-TODOS
+                       MOVE WS-TDLIST TO TODO-ITEM(NUMBER-OF-TODOS)
                  END-READ
              END-PERFORM
              DISPLAY "</ul>"
