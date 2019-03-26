@@ -5,6 +5,7 @@ kann
 soll
 - einzelne Punkte loeschen
 - Priorität / Solldatum
+- Index der Punkte wird nicht richtig gesetzt momentan (alle auf 00001)
 - Punkte bearbeiten
 - erledigt
 - Sortierfunktion
