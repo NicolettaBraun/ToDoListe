@@ -16,7 +16,6 @@
              05 ITEM-CONTENT PIC X(35).
        WORKING-STORAGE SECTION.
        01 TEMP-FIELDS.
-        05  ITEM-TO-DELETE          PIC 9(5) VALUE 1.
         05  NUMBER-OF-TODOS         PIC 9(5) VALUE 0.
            88 LIST-IS-EMPTY VALUE ZERO.
         05  COUNTER                 PIC 9(5).
@@ -26,10 +25,12 @@
        01 WS-TDLIST.
         05 ITEM-ID PIC X(5).
         05 ITEM-CONTENT PIC X(35).
+       01 WS-POSITION PIC 9(5).
        LINKAGE SECTION.
         COPY todoactions.
         COPY todoitem.
-       PROCEDURE DIVISION USING TODO-ACTION NEW-TODO-ITEM.
+       PROCEDURE DIVISION USING TODO-ACTION NEW-TODO-ITEM
+         ITEM-TO-DELETE.
            EVALUATE TRUE
            WHEN ACTION-SHOW
               PERFORM READ-TODOLIST-FROM-FILE
@@ -66,11 +67,17 @@
           EXIT.
 
        DISPLAY-ITEM SECTION.
-          DISPLAY "<li>" ITEM-CONTENT IN WS-TDLIST "</li>"
+          DISPLAY "<li onClick='javascript:elementTest()'"
+           " id='" WS-POSITION
+           "'>" 
+           ITEM-CONTENT IN WS-TDLIST 
+      *    "<input value='test' type='button'>"
+           "</li>"
           EXIT.
 
        DELETE-ITEM SECTION.
            PERFORM READ-TODOLIST-FROM-FILE
+           DISPLAY ITEM-TO-DELETE UPON SYSERR
            ADD 1 TO ITEM-TO-DELETE
            PERFORM WITH TEST AFTER
              VARYING COUNTER FROM ITEM-TO-DELETE BY 1 UNTIL
@@ -94,7 +101,9 @@
              PERFORM UNTIL WS-EOF='Y'
                  READ TDLIST INTO WS-TDLIST
                     AT END MOVE 'Y' TO WS-EOF
-                    NOT AT END PERFORM DISPLAY-ITEM
+                    NOT AT END 
+                       MOVE NUMBER-OF-TODOS TO WS-POSITION
+                       PERFORM DISPLAY-ITEM
                        ADD 1 TO NUMBER-OF-TODOS
                        MOVE WS-TDLIST TO TODO-ITEM(NUMBER-OF-TODOS)
                  END-READ

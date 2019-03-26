@@ -43,10 +43,13 @@
         initXmlRequests();
         self.xmlHttpReq.send("action=deleteitem\n");
     }
-
     function updatepage(str){
         document.getElementById("result").innerHTML = str;  
     }
+	function elementTest(){
+		clearList();
+	
+	}
     window.onload = showTodoList;
     </script>
     <title>ToDo Liste in COBOL</title>
@@ -54,10 +57,11 @@
 <body>
     Eine ToDo Liste in COBOL<br><p>
         <form name="f1">
-            <p>Todo hinzuf&uuml;gen: <input name="content" type="text" text="50">
+            <p>Todo hinzuf&uuml;gen: <input name="content" type="text" text="50" onkeydown="if (event.keyCode==13)
+                                                                                               javascript:addToTodolist()"/>
                 <input value="Eintragen" type="button" onclick='javascript:addToTodolist()'></p>
                 <input value="Liste löschen" type="button" onclick='javascript:clearList()'>
-                <input value="Element löschen" type="button" onclick='javascript:deleteItem()'></p>
+                <input value="Element löschen X" type="button" onclick='javascript:deleteItem()'></p>
                 <div id="result"></div>
             </form>
         </body>
