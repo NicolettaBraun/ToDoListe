@@ -13,7 +13,7 @@
         else if (window.ActiveXObject) {
             self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        self.xmlHttpReq.open('POST', 'http://localhost:8080/cgi-bin/todohandler', true);
+        self.xmlHttpReq.open('POST', 'http://localhost:8081/cgi-bin/todohandler', true);
         self.xmlHttpReq.setRequestHeader('Content-Type',
         'application/x-www-form-urlencoded');
         self.xmlHttpReq.onreadystatechange = function() {
@@ -39,9 +39,13 @@
         initXmlRequests();
         self.xmlHttpReq.send("action=delete\n");
     }
+    function deleteItem(){
+        initXmlRequests();
+        self.xmlHttpReq.send("action = deleteitem\n");
+    }
 
     function updatepage(str){
-        document.getElementById("result").innerHTML = str;
+        document.getElementById("result").innerHTML = str;  
     }
     window.onload = showTodoList;
     </script>
@@ -52,7 +56,8 @@
         <form name="f1">
             <p>Todo hinzuf&uuml;gen: <input name="content" type="text" text="50">
                 <input value="Eintragen" type="button" onclick='javascript:addToTodolist()'></p>
-                <input value="Liste löschen" type="button" onclick='javascript:clearList()'></p>
+                <input value="Liste löschen" type="button" onclick='javascript:clearList()'>
+                <input value="Element löschen" type="button" onclick='javascript:deleteItem()'></p>
                 <div id="result"></div>
             </form>
         </body>

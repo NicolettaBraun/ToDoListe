@@ -1,0 +1,15 @@
+kann
+- einzelne Elemente hinzufuegen
+- alles löschen
+
+soll
+- einzelne Punkte loeschen
+- Priorität / Solldatum
+- Punkte bearbeiten
+- erledigt
+- Sortierfunktion
+- Unterschiedliche Kategorien (Gelöschtes/Archiv/Erledigt/Zu Heute)
+- Notizen
+- wiederholende Aufgaben
+- verschönern (Farbe/Format)
+(- Fotos?)
