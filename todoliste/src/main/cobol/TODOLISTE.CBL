@@ -142,9 +142,14 @@
 
        DISPLAY-ITEM SECTION.
          DISPLAY "<li "
+<<<<<<< HEAD
          "style='float: left; clear: both;' "
          "onClick='javascript:deleteItem("WS-POSITION")'"
          " id='" WS-POSITION
+=======
+      *   "onClick='javascript:deleteItem("WS-POSITION")'"
+         "onClick='javascript:showMenu()'"
+>>>>>>> f63119b51bbeff47bf803e6f5f8bc7b8771e570f
          "'>"
          DESCRIPTION IN WS-TDLIST
       *  "<input value='test' type='button'>"
