@@ -143,7 +143,7 @@
        DISPLAY-ITEM SECTION.
          DISPLAY "<li "
       *   "onClick='javascript:deleteItem("WS-POSITION")'"
-         "onClick='javascript:showMenu()'"
+         "onClick='javascript:showMenu("WS-POSITION")'"
          "'>"
          DESCRIPTION IN WS-TDLIST
          "</li>"
