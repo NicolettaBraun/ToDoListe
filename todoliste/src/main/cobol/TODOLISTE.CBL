@@ -61,7 +61,7 @@
          EXIT.
 
        DISPLAY-ITEM SECTION.
-         DISPLAY "<li onClick='javascript:elementTest()'"
+         DISPLAY "<li onClick='javascript:deleteItem("WS-POSITION")'"
          " id='" WS-POSITION
          "'>" 
          ITEM-CONTENT IN WS-TDLIST 
