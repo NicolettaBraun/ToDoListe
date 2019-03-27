@@ -29,7 +29,7 @@
         qstr = 'content=' + escape(word);  // NOTE: no '?' before querystring
         qstr = qstr + "&action=add\n"
         self.xmlHttpReq.send(qstr);
-        showTodoList();
+		setTimeout(showTodoList(), 250);
     }
     function showTodoList() {
         initXmlRequests();
