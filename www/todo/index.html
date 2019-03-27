@@ -1,68 +1,72 @@
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="text/javascript">
-    function initXmlRequests() {
-        var xmlHttpReq = false;
-        var self = this;
-        // Mozilla/Safari
-        if (window.XMLHttpRequest) {
-            self.xmlHttpReq = new XMLHttpRequest();
-        }
-        // IE
-        else if (window.ActiveXObject) {
-            self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        self.xmlHttpReq.open('POST', 'http://localhost:8081/cgi-bin/todohandler', true);
-        self.xmlHttpReq.setRequestHeader('Content-Type',
-        'application/x-www-form-urlencoded');
-        self.xmlHttpReq.onreadystatechange = function() {
-            if (self.xmlHttpReq.readyState == 4) {
-                updatepage(self.xmlHttpReq.responseText);
-            }
-        }
-    }
-    function addToTodolist() {
-        initXmlRequests();
-        var form = document.forms['f1'];
-        var word = form.content.value;
-        qstr = 'content=' + escape(word);  // NOTE: no '?' before querystring
-        qstr = qstr + "&action=add\n"
-        self.xmlHttpReq.send(qstr);
-        showTodoList();
-    }
-    function showTodoList() {
-        initXmlRequests();
-        self.xmlHttpReq.send("action=show\n");
-    }
-    function clearList() {
-        initXmlRequests();
-        self.xmlHttpReq.send("action=delete\n");
-    }
-    function deleteItem(){
-        initXmlRequests();
-        self.xmlHttpReq.send("action=deleteitem\n");
-    }
-    function updatepage(str){
-        document.getElementById("result").innerHTML = str;  
-    }
-	function elementTest(){
-		clearList();
-	
-	}
-    window.onload = showTodoList;
-    </script>
-    <title>ToDo Liste in COBOL</title>
-</head>
-<body>
-    Eine ToDo Liste in COBOL<br><p>
-        <form name="f1">
-            <p>Todo hinzuf&uuml;gen: <input name="content" type="text" text="50" onkeydown="if (event.keyCode==13)
-                                                                                               javascript:addToTodolist()"/>
-                <input value="Eintragen" type="button" onclick='javascript:addToTodolist()'></p>
-                <input value="Liste löschen" type="button" onclick='javascript:clearList()'>
-                <input value="Element löschen X" type="button" onclick='javascript:deleteItem()'></p>
-                <div id="result"></div>
-            </form>
-        </body>
-        </html>
+    <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script type="text/javascript">
+		function initXmlRequests() {
+			var xmlHttpReq = false;
+			var self = this;
+			// Mozilla/Safari
+			if (window.XMLHttpRequest) {
+				self.xmlHttpReq = new XMLHttpRequest();
+			}
+			// IE
+			else if (window.ActiveXObject) {
+				self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			self.xmlHttpReq.open('POST', 'http://localhost:8081/cgi-bin/todohandler', true);
+			self.xmlHttpReq.setRequestHeader('Content-Type',
+			'application/x-www-form-urlencoded');
+			self.xmlHttpReq.onreadystatechange = function() {
+				if (self.xmlHttpReq.readyState == 4) {
+					updatepage(self.xmlHttpReq.responseText);
+				}
+			}
+		}
+		function addToTodolist() {
+			initXmlRequests();
+			var form = document.forms['f1'];
+			var word = form.content.value;
+			qstr = 'content=' + escape(word);  // NOTE: no '?' before querystring
+			qstr = qstr + "&action=add\n"
+			self.xmlHttpReq.send(qstr);
+			setTimeout(showTodoList(), 250);
+			console.log(qstr);
+		}
+		function showTodoList() {
+			initXmlRequests();
+			self.xmlHttpReq.send("action=show\n");
+		}
+		function clearList() {
+			initXmlRequests();
+			self.xmlHttpReq.send("action=delete\n");
+		}
+		function deleteItem(str){
+			initXmlRequests();
+			qstr = 'pos=' + str;
+			qstr = qstr + "&action=deleteitem\n"
+			//self.xmlHttpReq.send(qstr);
+			console.log(qstr);
+		}
+		function updatepage(str){
+			document.getElementById("result").innerHTML = str;  
+		}
+		function elementTest(){
+			clearList();
+		
+		}
+		window.onload = showTodoList;
+		</script>
+		<title>ToDo Liste in COBOL</title>
+	</head>
+	<body>
+		Eine ToDo Liste in COBOL<br><p>
+		<form name="f1">
+			<p>Todo hinzuf&uuml;gen: <input name="content" type="text" text="50" onkeydown="if (event.keyCode==13)
+																							   javascript:addToTodolist()"/>
+				<input value="Eintragen" type="button" onclick='javascript:addToTodolist()'></p>
+				<input value="Liste löschen" type="button" onclick='javascript:clearList()'>
+				<input value="Element löschen X" type="button" onclick='javascript:deleteItem()'></p>
+				<div id="result"></div>
+		</form>
+	</body>
+</html>
