@@ -61,7 +61,9 @@
          EXIT.
 
        DISPLAY-ITEM SECTION.
-         DISPLAY "<li onClick='javascript:deleteItem("WS-POSITION")'"
+         DISPLAY "<li "
+         "style='float: left; clear: both;' "
+         "onClick='javascript:deleteItem("WS-POSITION")'"
          " id='" WS-POSITION
          "'>" 
          ITEM-CONTENT IN WS-TDLIST 
