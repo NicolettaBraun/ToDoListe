@@ -142,14 +142,13 @@
 
        DISPLAY-ITEM SECTION.
          DISPLAY "<li "
-         "style='float: left; clear: both;' "
          "onClick='javascript:deleteItem("WS-POSITION")'"
-         " id='" WS-POSITION
          "'>"
          DESCRIPTION IN WS-TDLIST
-      *  "<input value='test' type='button'>"
          "</li>"
          EXIT.
+		 
+		 
 
        DELETE-ITEM SECTION.
          PERFORM READ-TODOLIST-FROM-FILE
