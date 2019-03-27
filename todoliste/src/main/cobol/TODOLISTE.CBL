@@ -180,35 +180,21 @@
          PERFORM UNTIL WS-EOF='Y'
                READ TDLIST INTO WS-TDLIST
                AT END MOVE 'Y' TO WS-EOF
-<<<<<<< HEAD
-                 NOT AT END
-                   MOVE NUMBER-OF-TODOS TO WS-POSITION
-                   PERFORM DISPLAY-ITEM
-                       ADD 1 TO NUMBER-OF-TODOS
-                       MOVE WS-TDLIST TO TODO-ITEM(NUMBER-OF-TODOS)
-=======
+               
                NOT AT END PERFORM UNTERSECTION-READ
->>>>>>> origin/master
+
                END-READ
          END-PERFORM
          DISPLAY "</ul>"
          CLOSE TDLIST
          EXIT.
 
-<<<<<<< HEAD
-      * REFACTOR-INDEX SECTION.
-      *   PERFORM VARYING COUNTER FROM 1 BY 1
-      *   UNTIL COUNTER > NUMBER-OF-TODOS
-      *      MOVE COUNTER TO ITEM-ID FROM WS-TDLIST(COUNTER)
-      *   END-PERFORM
-      *   .
-=======
+
        UNTERSECTION-READ SECTION.
          MOVE NUMBER-OF-TODOS TO WS-POSITION
          ADD 1 TO NUMBER-OF-TODOS
          MOVE WS-TDLIST TO TODO-ITEM(NUMBER-OF-TODOS)
          PERFORM DISPLAY-ITEM
          EXIT.
->>>>>>> origin/master
 
        END PROGRAM TODOLISTE.
