@@ -142,13 +142,14 @@
 
        DISPLAY-ITEM SECTION.
          DISPLAY "<li "
+         "style='float: left; clear: both;' "
          "onClick='javascript:deleteItem("WS-POSITION")'"
+         " id='" WS-POSITION
          "'>"
          DESCRIPTION IN WS-TDLIST
+      *  "<input value='test' type='button'>"
          "</li>"
          EXIT.
-		 
-		 
 
        DELETE-ITEM SECTION.
          PERFORM READ-TODOLIST-FROM-FILE
@@ -179,7 +180,7 @@
          PERFORM UNTIL WS-EOF='Y'
                READ TDLIST INTO WS-TDLIST
                AT END MOVE 'Y' TO WS-EOF
-               
+
                NOT AT END PERFORM UNTERSECTION-READ
 
                END-READ
@@ -195,5 +196,12 @@
          MOVE WS-TDLIST TO TODO-ITEM(NUMBER-OF-TODOS)
          PERFORM DISPLAY-ITEM
          EXIT.
+
+       REFACTOR-ID SECTION.
+         PERFORM VARYING COUNTER FROM 1 UNTIL COUNTER > NUMBER-OF-TODOS
+             MOVE COUNTER TO ITEM-ID IN TODO-ITEM(COUNTER)
+         END-PERFORM
+         EXIT.
+
 
        END PROGRAM TODOLISTE.
