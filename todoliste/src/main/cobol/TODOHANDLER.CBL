@@ -33,7 +33,7 @@
            WHEN ACTION-DELETE
              PERFORM DELETE-TODOLIST
            WHEN ACTION-DELETEITEM
-             PERFORM DELETEITEM
+             PERFORM DELETE-ITEM
            WHEN OTHER
              DISPLAY "Action unbekannt: " TODO-ACTION
            END-EVALUATE
@@ -51,19 +51,23 @@
            CLOSE WEBINPUT
            MOVE CHUNK-OF-POST TO REQUEST-STRING
           .
+
        U01-PRINT-HEADER SECTION.
            DISPLAY "CONTENT-TYPE: TEXT/HTML"
            NEWLINE
           .
+
        READ-PARAMETER-VALUE SECTION.
            MOVE CHUNK-OF-POST TO REQUEST-STRING
            CALL "CGIUTIL" USING REQUEST-PARAMETERS
-          .
+          EXIT.
+
        READ-TODOLIST-ACTION SECTION.
            MOVE "action" TO PARAMETER-NAME
            PERFORM READ-PARAMETER-VALUE
            MOVE PARAMETER-VALUE TO TODO-ACTION
           EXIT.
+
        ADD-TODOLIST-ENTRY SECTION.
            MOVE "content" TO PARAMETER-NAME
            PERFORM READ-PARAMETER-VALUE
@@ -71,17 +75,21 @@
                                   PARAMETER-VALUE
                                   PARAMETER-VALUE
           EXIT.
-       DELETEITEM SECTION.
-           CALL "TODOLISTE" USING TODO-ACTION
-          EXIT.
-       SHOW-TODOLIST SECTION.
-          CALL "TODOLISTE" USING TODO-ACTION
-          EXIT.
-       DELETE-TODOLIST SECTION.
-          MOVE "deletePos" TO PARAMETER-NAME
+
+       DELETE-ITEM SECTION.
+          MOVE "pos" TO PARAMETER-NAME
           PERFORM READ-PARAMETER-VALUE
           CALL "TODOLISTE" USING TODO-ACTION
                                  PARAMETER-VALUE
                                  PARAMETER-VALUE
           EXIT.
+
+       SHOW-TODOLIST SECTION.
+          CALL "TODOLISTE" USING TODO-ACTION
+          EXIT.
+
+       DELETE-TODOLIST SECTION.
+          CALL "TODOLISTE" USING TODO-ACTION
+          EXIT.
+
        END PROGRAM TODOHANDLER.
