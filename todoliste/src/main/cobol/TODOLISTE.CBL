@@ -12,19 +12,94 @@
        FILE SECTION.
           FD TDLIST.
           01 TDLIST-FILE.
-             05 ITEM-ID PIC 9(5).
-             05 ITEM-CONTENT PIC X(35).
+              10 ITEM-ID PIC 9(5).
+              10 USER PIC X(10) VALUE "TEST".
+              10 ADDED.
+                    15 ADDED-DATE.
+                         20  ADDED-YEAR         PIC 9(04).
+                         20  FILLER             PIC X(01)  VALUE "-".
+                         20  ADDED-MONTH        PIC 9(02).
+                         20  ADDED-DAY          PIC 9(02).
+                    15 ADDED-TIME.
+                         20  ADDED-HOURS        PIC 9(02).
+                         20  ADDED-MINUTE       PIC 9(02).
+                         20  ADDED-SECOND       PIC 9(02).
+                         20  ADDED-MILLISECONDS PIC 9(02).
+              10 DUE.
+                    15 DUE-DATE.
+                         20  DUE-YEAR         PIC 9(04).
+                         20  DUE              PIC X(01)  VALUE "-".
+                         20  DUE-MONTH        PIC 9(02).
+                         20  DUE-DAY          PIC 9(02).
+                    15 DUE-TIME.
+                         20  DUE-HOURS        PIC 9(02).
+                         20  DUE-MINUTE       PIC 9(02).
+                         20  DUE-SECOND       PIC 9(02).
+                         20  DUE-MILLISECONDS PIC 9(02).
+              10 CATEGORY PIC 9.
+              10 DESCRIPTION PIC X(35).
        WORKING-STORAGE SECTION.
        01 TEMP-FIELDS.
         05  NUMBER-OF-TODOS         PIC 9(5) VALUE 0.
            88 LIST-IS-EMPTY VALUE ZERO.
         05  COUNTER                 PIC 9(5).
         05  TODOLISTE.
-            07  TODO-ITEM PIC X(35) OCCURS 999.
+            07  TODO-ITEM  OCCURS 999.
+                10 ITEM-ID PIC 9(5).
+                10 USER PIC X(10).
+                10 ADDED.
+                      15 ADDED-DATE.
+                           20  ADDED-YEAR         PIC 9(04).
+                           20  FILLER             PIC X(01)  VALUE "-".
+                           20  ADDED-MONTH        PIC 9(02).
+                           20  ADDED-DAY          PIC 9(02).
+                      15 ADDED-TIME.
+                           20  ADDED-HOURS        PIC 9(02).
+                           20  ADDED-MINUTE       PIC 9(02).
+                           20  ADDED-SECOND       PIC 9(02).
+                           20  ADDED-MILLISECONDS PIC 9(02).
+                10 DUE.
+                      15 DUE-DATE.
+                           20  DUE-YEAR         PIC 9(04).
+                           20  DUE              PIC X(01)  VALUE "-".
+                           20  DUE-MONTH        PIC 9(02).
+                           20  DUE-DAY          PIC 9(02).
+                      15 DUE-TIME.
+                           20  DUE-HOURS        PIC 9(02).
+                           20  DUE-MINUTE       PIC 9(02).
+                           20  DUE-SECOND       PIC 9(02).
+                           20  DUE-MILLISECONDS PIC 9(02).
+                10 CATEGORY PIC 9 VALUE 0.
+                  88 None VALUE 0.
+                10 DESCRIPTION PIC X(35).
        01 WS-EOF PIC A(1).
        01 WS-TDLIST.
-        05 ITEM-ID PIC X(5).
-        05 ITEM-CONTENT PIC X(35).
+           10 ITEM-ID PIC 9(5).
+           10 USER PIC X(10).
+           10 ADDED.
+                 15 ADDED-DATE.
+                      20  ADDED-YEAR         PIC 9(04).
+                      20  ADDED-FILLER             PIC X(01)  VALUE "-".
+                      20  ADDED-MONTH        PIC 9(02).
+                      20  ADDED-DAY          PIC 9(02).
+                 15 ADDED-TIME.
+                      20  ADDED-HOURS        PIC 9(02).
+                      20  ADDED-MINUTE       PIC 9(02).
+                      20  ADDED-SECOND       PIC 9(02).
+                      20  ADDED-MILLISECONDS PIC 9(02).
+           10 DUE.
+                 15 DUE-DATE.
+                      20  DUE-YEAR         PIC 9(04).
+                      20  DUE-FILLER               PIC X(01)  VALUE "-".
+                      20  DUE-MONTH        PIC 9(02).
+                      20  DUE-DAY          PIC 9(02).
+                 15 DUE-TIME.
+                      20  DUE-HOURS        PIC 9(02).
+                      20  DUE-MINUTE       PIC 9(02).
+                      20  DUE-SECOND       PIC 9(02).
+                      20  DUE-MILLISECONDS PIC 9(02).
+           10 CATEGORY PIC 9.
+           10 DESCRIPTION PIC X(35).
        01 WS-POSITION PIC 9(5).
        LINKAGE SECTION.
         COPY TODOACTIONS.
@@ -47,9 +122,12 @@
        ADD-NEW-TODO-ITEM SECTION.
          PERFORM READ-TODOLIST-FROM-FILE
          ADD 1 TO NUMBER-OF-TODOS
-         MOVE NEW-TODO-ITEM TO TODO-ITEM (NUMBER-OF-TODOS)
+         MOVE NEW-TODO-ITEM TO DESCRIPTION IN WS-TDLIST
          MOVE NUMBER-OF-TODOS TO ITEM-ID IN WS-TDLIST
-         MOVE NEW-TODO-ITEM TO ITEM-CONTENT IN WS-TDLIST
+         MOVE FUNCTION CURRENT-DATE TO ADDED IN WS-TDLIST
+         MOVE "DEFAULT" TO USER IN WS-TDLIST
+         MOVE 0 TO CATEGORY IN WS-TDLIST
+         MOVE WS-TDLIST TO TODO-ITEM (NUMBER-OF-TODOS)
          OPEN EXTEND TDLIST
          WRITE TDLIST-FILE FROM WS-TDLIST
          CLOSE TDLIST
@@ -63,8 +141,8 @@
        DISPLAY-ITEM SECTION.
          DISPLAY "<li onClick='javascript:deleteItem("WS-POSITION")'"
          " id='" WS-POSITION
-         "'>" 
-         ITEM-CONTENT IN WS-TDLIST 
+         "'>"
+         DESCRIPTION IN WS-TDLIST
       *  "<input value='test' type='button'>"
          "</li>"
          EXIT.
@@ -90,13 +168,14 @@
        CHANGE-POSITION SECTION.
          EXIT.
 
+
        READ-TODOLIST-FROM-FILE SECTION.
          OPEN INPUT TDLIST
          DISPLAY "<ul>"
          PERFORM UNTIL WS-EOF='Y'
                READ TDLIST INTO WS-TDLIST
                AT END MOVE 'Y' TO WS-EOF
-                 NOT AT END 
+                 NOT AT END
                    MOVE NUMBER-OF-TODOS TO WS-POSITION
                    PERFORM DISPLAY-ITEM
                        ADD 1 TO NUMBER-OF-TODOS
@@ -106,5 +185,12 @@
          DISPLAY "</ul>"
          CLOSE TDLIST
          EXIT.
+
+      * REFACTOR-INDEX SECTION.
+      *   PERFORM VARYING COUNTER FROM 1 BY 1
+      *   UNTIL COUNTER > NUMBER-OF-TODOS
+      *      MOVE COUNTER TO ITEM-ID FROM WS-TDLIST(COUNTER)
+      *   END-PERFORM
+      *   .
 
        END PROGRAM TODOLISTE.
