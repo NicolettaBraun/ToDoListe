@@ -42,7 +42,7 @@
 		}
 		function deleteItem(str){
 			initXmlRequests();
-			qstr = 'pos=' + str;
+			qstr = 'pos=' + padLeft(str,5);
 			qstr = qstr + "&action=deleteitem\n"
 			//self.xmlHttpReq.send(qstr);
 			console.log(qstr);
@@ -50,9 +50,8 @@
 		function updatepage(str){
 			document.getElementById("result").innerHTML = str;  
 		}
-		function elementTest(){
-			clearList();
-		
+		function padLeft(nr, n, str){
+			return Array(n-String(nr).length+1).join(str||'0')+nr;
 		}
 		window.onload = showTodoList;
 		</script>
