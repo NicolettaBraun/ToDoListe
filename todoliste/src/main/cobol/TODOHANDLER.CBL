@@ -32,6 +32,8 @@
              PERFORM SHOW-TODOLIST
            WHEN ACTION-DELETE
              PERFORM DELETE-TODOLIST
+           WHEN ACTION-DELETEITEM
+             PERFORM DELETEITEM
            WHEN OTHER
              DISPLAY "Action unbekannt: " TODO-ACTION
            END-EVALUATE
@@ -67,11 +69,19 @@
            PERFORM READ-PARAMETER-VALUE
            CALL "TODOLISTE" USING TODO-ACTION
                                   PARAMETER-VALUE
+                                  PARAMETER-VALUE
+          EXIT.
+       DELETEITEM SECTION.
+           CALL "TODOLISTE" USING TODO-ACTION
           EXIT.
        SHOW-TODOLIST SECTION.
           CALL "TODOLISTE" USING TODO-ACTION
           EXIT.
        DELETE-TODOLIST SECTION.
+          MOVE "deletePos" TO PARAMETER-NAME
+          PERFORM READ-PARAMETER-VALUE
           CALL "TODOLISTE" USING TODO-ACTION
+                                 PARAMETER-VALUE
+                                 PARAMETER-VALUE
           EXIT.
        END PROGRAM TODOHANDLER.

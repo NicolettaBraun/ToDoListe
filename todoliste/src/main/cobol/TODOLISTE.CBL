@@ -42,74 +42,69 @@
               PERFORM DELETE-ITEM
            END-EVALUATE
            GOBACK
-          .
+         .
 
        ADD-NEW-TODO-ITEM SECTION.
-           PERFORM READ-TODOLIST-FROM-FILE
-           ADD 1 TO NUMBER-OF-TODOS
-           MOVE NEW-TODO-ITEM
-             TO TODO-ITEM (NUMBER-OF-TODOS)
-
-           MOVE NUMBER-OF-TODOS
-             TO ITEM-ID IN WS-TDLIST
-           MOVE NEW-TODO-ITEM
-             TO ITEM-CONTENT IN WS-TDLIST
-
-           OPEN EXTEND TDLIST
-           WRITE TDLIST-FILE FROM WS-TDLIST
-           CLOSE TDLIST
-
-           EXIT.
+         PERFORM READ-TODOLIST-FROM-FILE
+         ADD 1 TO NUMBER-OF-TODOS
+         MOVE NEW-TODO-ITEM TO TODO-ITEM (NUMBER-OF-TODOS)
+         MOVE NUMBER-OF-TODOS TO ITEM-ID IN WS-TDLIST
+         MOVE NEW-TODO-ITEM TO ITEM-CONTENT IN WS-TDLIST
+         OPEN EXTEND TDLIST
+         WRITE TDLIST-FILE FROM WS-TDLIST
+         CLOSE TDLIST
+         EXIT.
 
        CLEAR-LIST SECTION.
-          OPEN OUTPUT TDLIST
-          CLOSE TDLIST
-          EXIT.
+         OPEN OUTPUT TDLIST
+         CLOSE TDLIST
+         EXIT.
 
        DISPLAY-ITEM SECTION.
-          DISPLAY "<li onClick='javascript:elementTest()'"
-           " id='" WS-POSITION
-           "'>" 
-           ITEM-CONTENT IN WS-TDLIST 
-      *    "<input value='test' type='button'>"
-           "</li>"
-          EXIT.
+         DISPLAY "<li onClick='javascript:elementTest()'"
+         " id='" WS-POSITION
+         "'>" 
+         ITEM-CONTENT IN WS-TDLIST 
+      *  "<input value='test' type='button'>"
+         "</li>"
+         EXIT.
 
        DELETE-ITEM SECTION.
-           PERFORM READ-TODOLIST-FROM-FILE
-           DISPLAY ITEM-TO-DELETE UPON SYSERR
-           ADD 1 TO ITEM-TO-DELETE
-           PERFORM WITH TEST AFTER
-             VARYING COUNTER FROM ITEM-TO-DELETE BY 1 UNTIL
-                  COUNTER = NUMBER-OF-TODOS
-                MOVE TODO-ITEM(COUNTER)
-                  TO TODO-ITEM(COUNTER - 1)
-           END-PERFORM
-           OPEN OUTPUT TDLIST
-           SUBTRACT 1 FROM NUMBER-OF-TODOS GIVING NUMBER-OF-TODOS
-           MOVE 0 TO COUNTER
-           PERFORM NUMBER-OF-TODOS TIMES
+         PERFORM READ-TODOLIST-FROM-FILE
+         DISPLAY ITEM-TO-DELETE UPON SYSERR
+         PERFORM VARYING COUNTER FROM ITEM-TO-DELETE BY 1 UNTIL
+             COUNTER = NUMBER-OF-TODOS
+               MOVE TODO-ITEM(COUNTER)
+               TO TODO-ITEM(COUNTER - 1)
+         END-PERFORM
+         OPEN OUTPUT TDLIST
+         SUBTRACT 1 FROM NUMBER-OF-TODOS GIVING NUMBER-OF-TODOS
+         MOVE 0 TO COUNTER
+         PERFORM NUMBER-OF-TODOS TIMES
                ADD 1 TO COUNTER
                WRITE TDLIST-FILE FROM TODO-ITEM(COUNTER)
-           END-PERFORM
-           CLOSE TDLIST
-          EXIT.
+         END-PERFORM
+         CLOSE TDLIST
+         EXIT.
+
+       CHANGE-POSITION SECTION.
+         EXIT.
 
        READ-TODOLIST-FROM-FILE SECTION.
-             OPEN INPUT TDLIST
-             DISPLAY "<ul>"
-             PERFORM UNTIL WS-EOF='Y'
-                 READ TDLIST INTO WS-TDLIST
-                    AT END MOVE 'Y' TO WS-EOF
-                    NOT AT END 
-                       MOVE NUMBER-OF-TODOS TO WS-POSITION
-                       PERFORM DISPLAY-ITEM
+         OPEN INPUT TDLIST
+         DISPLAY "<ul>"
+         PERFORM UNTIL WS-EOF='Y'
+               READ TDLIST INTO WS-TDLIST
+               AT END MOVE 'Y' TO WS-EOF
+                 NOT AT END 
+                   MOVE NUMBER-OF-TODOS TO WS-POSITION
+                   PERFORM DISPLAY-ITEM
                        ADD 1 TO NUMBER-OF-TODOS
                        MOVE WS-TDLIST TO TODO-ITEM(NUMBER-OF-TODOS)
-                 END-READ
-             END-PERFORM
-             DISPLAY "</ul>"
-             CLOSE TDLIST
-          EXIT.
+               END-READ
+         END-PERFORM
+         DISPLAY "</ul>"
+         CLOSE TDLIST
+         EXIT.
 
        END PROGRAM TODOLISTE.
