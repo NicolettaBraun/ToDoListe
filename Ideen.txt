@@ -1,12 +1,13 @@
 kann
 - einzelne Elemente hinzufuegen
 - alles löschen
+- einzelne Elemente löschen
+- Indizes beim Erstellen richtig gesetzt
 
 soll
-- einzelne Punkte loeschen
 - Priorität / Solldatum
-- Index der Punkte wird nicht richtig gesetzt momentan (alle auf 00001)
 - Punkte bearbeiten
+- Indizes ändern sich dynamisch entsprechend der Position in Liste
 - erledigt
 - Sortierfunktion
 - Unterschiedliche Kategorien (Gelöschtes/Archiv/Erledigt/Zu Heute)
