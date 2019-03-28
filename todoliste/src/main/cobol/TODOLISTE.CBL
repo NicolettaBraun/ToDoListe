@@ -94,6 +94,14 @@
        01 WS-POSITION PIC 9(5).
        01 ITEM-COUNTER PIC 9(5).
        01 SCHLEIFENLAUF PIC 9(5).
+       01 DISPLAY-DATE-TIME.
+           05 DISPLAY-DATE.
+              10  DISPLAY-YEAR         PIC 9(04).
+              10  DISPLAY-MONTH        PIC 9(02).
+              10  DISPLAY-DAY          PIC 9(02).
+           05 DISPLAY-TIME.
+              10  DISPLAY-HOURS        PIC 9(02).
+              10  DISPLAY-MINUTE       PIC 9(02).
 
        LINKAGE SECTION.
         COPY TODOACTIONS.
@@ -148,19 +156,26 @@
          "class='testClass'"
          "'>"
 
-         ADDED-YEAR IN WS-TDLIST
-         "-" ADDED-MONTH IN WS-TDLIST
-         "-" ADDED-DAY IN WS-TDLIST
-         SPACE
-         " " ADDED-HOURS IN WS-TDLIST
-         ":" ADDED-MINUTE IN WS-TDLIST
-         SPACE
-         USER IN WS-TDLIST
+         MOVE ADDED IN WS-TDLIST TO DISPLAY-DATE-TIME
+         PERFORM DISPLAY-FORMATTED-TIME
+
+         DISPLAY SPACE USER IN WS-TDLIST
          SPACE
          DESCRIPTION IN WS-TDLIST
       *  "<input value='test' type='button'>"
          "</li>"
          EXIT.
+
+       DISPLAY-FORMATTED-TIME SECTION.
+
+                DISPLAY DISPLAY-YEAR
+                "-" DISPLAY-MONTH
+                "-" DISPLAY-DAY
+                SPACE
+                " " DISPLAY-HOURS
+                ":" DISPLAY-MINUTE
+         EXIT.
+
 
        DELETE-ITEM SECTION.
          MOVE ITEM-TO-DELETE TO ITEM-COUNTER
