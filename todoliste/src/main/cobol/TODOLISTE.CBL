@@ -39,12 +39,12 @@
               10 DESCRIPTION PIC X(35).
        WORKING-STORAGE SECTION.
        01 TEMP-FIELDS.
-        05  NUMBER-OF-TODOS         PIC 9(5) VALUE 0.
+        05  NUMBER-OF-TODOS         PIC 9(3) VALUE 0.
            88 LIST-IS-EMPTY VALUE ZERO.
         05  COUNTER                 PIC 9(5).
         05  TODOLISTE.
             07  TODO-ITEM  OCCURS 999.
-                10 ITEM-ID PIC 9(5).
+                10 ITEM-ID PIC 9(3).
                 10 USER PIC X(10).
                 10 ADDED.
                       15 ADDED-DATE.
@@ -71,7 +71,7 @@
                 10 DESCRIPTION PIC X(35).
        01 WS-EOF PIC A(1).
        01 WS-TDLIST.
-           10 ITEM-ID PIC 9(5).
+           10 ITEM-ID PIC 9(3).
            10 USER PIC X(10).
            10 ADDED.
                  15 ADDED-DATE.
@@ -155,6 +155,7 @@
          "onClick='javascript:showMenu("WS-POSITION")'"
          "class='testClass'"
          "'>"
+         DISPLAY ITEM-ID IN WS-TDLIST "." SPACE
 
          MOVE ADDED IN WS-TDLIST TO DISPLAY-DATE-TIME
          PERFORM DISPLAY-FORMATTED-TIME
@@ -186,6 +187,7 @@
                ADD 1 TO ITEM-COUNTER
          END-PERFORM
          SUBTRACT 1 FROM NUMBER-OF-TODOS
+         PERFORM REFACTOR-ID
          EXIT.
 
        WRITE-IN-FILE-AFTER-CHANGE SECTION.
