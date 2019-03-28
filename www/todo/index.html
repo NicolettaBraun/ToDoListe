@@ -42,9 +42,9 @@
 			initXmlRequests();
 			self.xmlHttpReq.send("action=delete\n");
 		}
-		function deleteItem(str){
+		function deleteItem(){
 			initXmlRequests();
-			qstr = 'pos=' + padLeft(str,5);
+			qstr = 'pos=' + padLeft(globVarElement,5);
 			qstr = qstr + "&action=deleteitem\n"
 			self.xmlHttpReq.send(qstr);
 			console.log(qstr);
@@ -55,7 +55,9 @@
 		function padLeft(nr, n, str){
 			return Array(n-String(nr).length+1).join(str||'0')+nr;
 		}
-		function showMenu(){
+		globVarElement = "00000";
+		function showMenu(str){
+			globVarElement = str;
 			var x = document.getElementById("hiddenMenu");
 			if (x.style.visibility === 'hidden') {
 				x.style.visibility = 'visible';
