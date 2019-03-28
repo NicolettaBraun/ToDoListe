@@ -15,7 +15,7 @@
 			else if (window.ActiveXObject) {
 				self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
 			}
-			self.xmlHttpReq.open('POST', 'http://localhost:8081/cgi-bin/todohandler', true);
+			self.xmlHttpReq.open('POST', 'http://' + location.host + '/cgi-bin/todohandler', true);
 			self.xmlHttpReq.setRequestHeader('Content-Type',
 			'application/x-www-form-urlencoded');
 			self.xmlHttpReq.onreadystatechange = function() {
@@ -42,6 +42,7 @@
 			
 			self.xmlHttpReq.send(qstr);
 			setTimeout(showTodoList(), 250);
+			console.log(qstr);
 		}
 		function showTodoList() {
 			initXmlRequests();
@@ -56,6 +57,7 @@
 			qstr = "pos=" + padLeft(globVarElement,5);
 			qstr = qstr + "&action=deleteitem\n"
 			self.xmlHttpReq.send(qstr);
+			console.log(qstr);
 		}
 		function updatepage(str){
 			document.getElementById("result").innerHTML = str;  
@@ -68,6 +70,7 @@
 			qstr = "sorttype=" + "user";
 			qstr = qstr + "&action=sort\n";
 			self.xmlHttpReq.send(qstr);
+			console.log(qstr);
 		}
 		function nothing(){
 			console.log("nicht intigriert");
@@ -125,12 +128,12 @@
 		</form>
 		
 		<p>
-		<input class="hinzufügen" value="Hinzufügen" type="button" onclick='javascript:addToTodolist()'>
-		<input class="liste-löschen" value="Liste löschen" type="button" onclick='javascript:clearList()'>
-		<input class="sortieren" value="Sortieren " type="button" onclick='javascript:sortUser()'>
+		<input class="button hinzufügen" value="Hinzufügen" type="button" onclick='javascript:addToTodolist()'>
+		<input class="button liste-löschen" value="Liste löschen" type="button" onclick='javascript:clearList()'>
+		<input class="button sortieren" value="Sortieren " type="button" onclick='javascript:sortUser()'>
 		</p>
 		
-		<div id="hiddenMenu" class="result">
+		<div id="hiddenMenu" class="hiddenMenu">
 			<input class="ddm" value="Löschen" type="button" onclick='javascript:deleteItem()'>
 			<input class="ddm" value="Due Date" type="button" onclick='javascript:nothing()'>
 			<input class="ddm" value="Priorität" type="button" onclick='javascript:nothing()'>
