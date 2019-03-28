@@ -18,7 +18,6 @@
               10 ADDED.
                     15 ADDED-DATE.
                          20  ADDED-YEAR         PIC 9(04).
-                         20  FILLER             PIC X(01)  VALUE "-".
                          20  ADDED-MONTH        PIC 9(02).
                          20  ADDED-DAY          PIC 9(02).
                     15 ADDED-TIME.
@@ -29,7 +28,6 @@
               10 DUE.
                     15 DUE-DATE.
                          20  DUE-YEAR         PIC 9(04).
-                         20  DUE              PIC X(01)  VALUE "-".
                          20  DUE-MONTH        PIC 9(02).
                          20  DUE-DAY          PIC 9(02).
                     15 DUE-TIME.
@@ -51,7 +49,6 @@
                 10 ADDED.
                       15 ADDED-DATE.
                            20  ADDED-YEAR         PIC 9(04).
-                           20  FILLER             PIC X(01)  VALUE "-".
                            20  ADDED-MONTH        PIC 9(02).
                            20  ADDED-DAY          PIC 9(02).
                       15 ADDED-TIME.
@@ -62,7 +59,6 @@
                 10 DUE.
                       15 DUE-DATE.
                            20  DUE-YEAR         PIC 9(04).
-                           20  DUE              PIC X(01)  VALUE "-".
                            20  DUE-MONTH        PIC 9(02).
                            20  DUE-DAY          PIC 9(02).
                       15 DUE-TIME.
@@ -80,25 +76,19 @@
            10 ADDED.
                  15 ADDED-DATE.
                       20  ADDED-YEAR         PIC 9(04).
-                      20  ADDED-FILLER             PIC X(01)  VALUE "-".
                       20  ADDED-MONTH        PIC 9(02).
                       20  ADDED-DAY          PIC 9(02).
                  15 ADDED-TIME.
                       20  ADDED-HOURS        PIC 9(02).
                       20  ADDED-MINUTE       PIC 9(02).
-                      20  ADDED-SECOND       PIC 9(02).
-                      20  ADDED-MILLISECONDS PIC 9(02).
            10 DUE.
                  15 DUE-DATE.
                       20  DUE-YEAR         PIC 9(04).
-                      20  DUE-FILLER               PIC X(01)  VALUE "-".
                       20  DUE-MONTH        PIC 9(02).
                       20  DUE-DAY          PIC 9(02).
                  15 DUE-TIME.
                       20  DUE-HOURS        PIC 9(02).
                       20  DUE-MINUTE       PIC 9(02).
-                      20  DUE-SECOND       PIC 9(02).
-                      20  DUE-MILLISECONDS PIC 9(02).
            10 CATEGORY PIC 9.
            10 DESCRIPTION PIC X(35).
        01 WS-POSITION PIC 9(5).
@@ -157,8 +147,16 @@
          "onClick='javascript:showMenu("WS-POSITION")'"
          "class='testClass'"
          "'>"
+
+         ADDED-YEAR IN WS-TDLIST
+         "-" ADDED-MONTH IN WS-TDLIST
+         "-" ADDED-DAY IN WS-TDLIST
+         SPACE
+         " " ADDED-HOURS IN WS-TDLIST
+         ":" ADDED-MINUTE IN WS-TDLIST
+         SPACE
          USER IN WS-TDLIST
-         DISPLAY ""
+         SPACE
          DESCRIPTION IN WS-TDLIST
       *  "<input value='test' type='button'>"
          "</li>"
