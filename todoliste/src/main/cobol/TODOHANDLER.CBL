@@ -72,16 +72,24 @@
        ADD-TODOLIST-ENTRY SECTION.
            MOVE "content" TO PARAMETER-NAME
            PERFORM READ-PARAMETER-VALUE
-      
-           MOVE PARAMETER-VALUE TO NEW-TODO-ITEM
+           MOVE PARAMETER-VALUE TO NEW-ITEM-DESCRIPTION
+
            MOVE "user" TO PARAMETER-NAME
            PERFORM READ-PARAMETER-VALUE
            MOVE PARAMETER-VALUE TO ACTIVE-USER
 
 
+           MOVE "prio" TO PARAMETER-NAME
+           PERFORM READ-PARAMETER-VALUE
+           MOVE PARAMETER-VALUE TO ITEM-PRIO
+
+
+
+
            CALL "TODOLISTE" USING TODO-ACTION
                                   ACTIVE-USER
-                                  NEW-TODO-ITEM
+                                  NEW-ITEM-DESCRIPTION
+                                  ITEM-PRIO
                                   0
           EXIT.
 
@@ -90,6 +98,7 @@
           PERFORM READ-PARAMETER-VALUE
           CALL "TODOLISTE" USING TODO-ACTION
                                  ACTIVE-USER
+                                 0
                                  0
                                  PARAMETER-VALUE
           EXIT.

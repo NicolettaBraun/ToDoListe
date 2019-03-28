@@ -14,7 +14,8 @@
           FD TDLIST.
           01 TDLIST-FILE.
               10 ITEM-ID PIC 9(5).
-              10 USER PIC X(10) VALUE "TEST".
+              10 USER PIC X(10).
+              10 PRIO PIC X.
               10 ADDED.
                     15 ADDED-DATE.
                          20  ADDED-YEAR         PIC 9(04).
@@ -46,6 +47,7 @@
             07  TODO-ITEM  OCCURS 999.
                 10 ITEM-ID PIC 9(3).
                 10 USER PIC X(10).
+                10 PRIO PIC X.
                 10 ADDED.
                       15 ADDED-DATE.
                            20  ADDED-YEAR         PIC 9(04).
@@ -73,6 +75,7 @@
        01 WS-TDLIST.
            10 ITEM-ID PIC 9(3).
            10 USER PIC X(10).
+           10 PRIO PIC X.
            10 ADDED.
                  15 ADDED-DATE.
                       20  ADDED-YEAR         PIC 9(04).
@@ -106,13 +109,13 @@
         COPY TODOACTIONS.
         COPY TODOITEM.
 
-       PROCEDURE DIVISION USING TODO-ACTION ACTIVE-USER NEW-TODO-ITEM
-         ITEM-TO-DELETE.
+       PROCEDURE DIVISION USING TODO-ACTION ACTIVE-USER
+             NEW-ITEM-DESCRIPTION ITEM-TO-DELETE.
            EVALUATE TRUE
            WHEN ACTION-SHOW
               PERFORM READ-TODOLIST-FROM-FILE
            WHEN ACTION-ADD
-              PERFORM ADD-NEW-TODO-ITEM
+              PERFORM ADD-NEW-ITEM
            WHEN ACTION-DELETE
               PERFORM CLEAR-LIST
            WHEN ACTION-DELETEITEM
@@ -123,7 +126,7 @@
            GOBACK
          .
 
-       ADD-NEW-TODO-ITEM SECTION.
+       ADD-NEW-ITEM SECTION.
            PERFORM READ-TODOLIST-FROM-FILE
            PERFORM ADD-ITEM-TO-LIST
            OPEN EXTEND TDLIST
@@ -133,7 +136,7 @@
 
 
        ADD-ITEM-TO-LIST SECTION.
-           MOVE NEW-TODO-ITEM TO DESCRIPTION IN WS-TDLIST
+           MOVE NEW-ITEM-DESCRIPTION TO DESCRIPTION IN WS-TDLIST
            MOVE FUNCTION CURRENT-DATE TO ADDED IN WS-TDLIST
            MOVE ACTIVE-USER TO USER IN WS-TDLIST
            MOVE 0 TO CATEGORY IN WS-TDLIST
