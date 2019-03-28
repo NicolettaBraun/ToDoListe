@@ -114,7 +114,16 @@
           EXIT.
 
        SORT-ITEM SECTION.
+      *    MOVE "user" TO PARAMETER-NAME
+      *    PERFORM READ-PARAMETER-VALUE
+      *    DISPLAY PARAMETER-VALUE UPON SYSERR
+          MOVE "user" TO WHICH-KIND-SORT
           CALL "TODOLISTE" USING TODO-ACTION
+                                 ACTIVE-USER
+                                 0
+                                 0
+                                 0
+                                 WHICH-KIND-SORT
           EXIT.
 
        END PROGRAM TODOHANDLER.
