@@ -20,7 +20,7 @@
 
        PROCEDURE DIVISION.
            PERFORM U01-PRINT-HEADER
-           
+
            PERFORM U00-PARSE-WEBINPUT
 
            PERFORM READ-TODOLIST-ACTION
@@ -74,12 +74,14 @@
            CALL "TODOLISTE" USING TODO-ACTION
                                   PARAMETER-VALUE
                                   PARAMETER-VALUE
+                                  PARAMETER-VALUE
           EXIT.
 
        DELETE-ITEM SECTION.
           MOVE "pos" TO PARAMETER-NAME
           PERFORM READ-PARAMETER-VALUE
           CALL "TODOLISTE" USING TODO-ACTION
+                                 PARAMETER-VALUE
                                  PARAMETER-VALUE
                                  PARAMETER-VALUE
           EXIT.
