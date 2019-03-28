@@ -91,8 +91,8 @@
           MOVE "pos" TO PARAMETER-NAME
           PERFORM READ-PARAMETER-VALUE
           CALL "TODOLISTE" USING TODO-ACTION
-                                 PARAMETER-VALUE
-                                 PARAMETER-VALUE
+                                 ACTIVE-USER
+                                 0
                                  PARAMETER-VALUE
           EXIT.
 
