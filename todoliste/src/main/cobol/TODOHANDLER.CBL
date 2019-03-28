@@ -17,6 +17,7 @@
        01 NEWLINE              PIC X     VALUE X'0A'.
        COPY TODOACTIONS.
        COPY CGIUTILDATA.
+       COPY TODOITEM.
 
        PROCEDURE DIVISION.
            PERFORM U01-PRINT-HEADER
@@ -70,11 +71,20 @@
 
        ADD-TODOLIST-ENTRY SECTION.
            MOVE "content" TO PARAMETER-NAME
+      *     DISPLAY PARAMETER-NAME UPON SYSERR
            PERFORM READ-PARAMETER-VALUE
+      *     DISPLAY PARAMETER-VALUE UPON SYSERR
+
+           MOVE PARAMETER-VALUE TO NEW-TODO-ITEM
+           MOVE "user" TO PARAMETER-NAME
+           PERFORM READ-PARAMETER-VALUE
+           MOVE PARAMETER-VALUE TO ACTIVE-USER
+
+
            CALL "TODOLISTE" USING TODO-ACTION
-                                  PARAMETER-VALUE
-                                  PARAMETER-VALUE
-                                  PARAMETER-VALUE
+                                  ACTIVE-USER
+                                  NEW-TODO-ITEM
+                                  0
           EXIT.
 
        DELETE-ITEM SECTION.
