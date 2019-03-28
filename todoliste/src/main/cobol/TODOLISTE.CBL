@@ -155,6 +155,7 @@
          DISPLAY "<li "
       *   "onClick='javascript:deleteItem("WS-POSITION")'"
          "onClick='javascript:showMenu("WS-POSITION")'"
+         "class='testClass'"
          "'>"
          DESCRIPTION IN WS-TDLIST
       *  "<input value='test' type='button'>"
