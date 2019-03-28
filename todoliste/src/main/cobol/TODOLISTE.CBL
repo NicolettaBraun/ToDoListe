@@ -91,7 +91,6 @@
                       20  DUE-MINUTE       PIC 9(02).
            10 CATEGORY PIC 9.
            10 DESCRIPTION PIC X(35).
-       01 WS-POSITION PIC 9(5).
        01 ITEM-COUNTER PIC 9(5).
        01 SCHLEIFENLAUF PIC 9(5).
        01 DISPLAY-DATE-TIME.
@@ -134,14 +133,12 @@
 
 
        ADD-ITEM-TO-LIST SECTION.
-           ADD 1 TO NUMBER-OF-TODOS
-           MOVE NUMBER-OF-TODOS TO ITEM-ID IN WS-TDLIST
            MOVE NEW-TODO-ITEM TO DESCRIPTION IN WS-TDLIST
            MOVE FUNCTION CURRENT-DATE TO ADDED IN WS-TDLIST
            MOVE ACTIVE-USER TO USER IN WS-TDLIST
            MOVE 0 TO CATEGORY IN WS-TDLIST
 
-           MOVE WS-TDLIST TO TODO-ITEM (NUMBER-OF-TODOS)
+           PERFORM MOVING-FILE-TO-LIST
            EXIT.
 
        CLEAR-LIST SECTION.
@@ -152,7 +149,7 @@
        DISPLAY-ITEM SECTION.
          DISPLAY "<li "
       *   "onClick='javascript:deleteItem("WS-POSITION")'"
-         "onClick='javascript:showMenu("WS-POSITION")'"
+         "onClick='javascript:showMenu("ITEM-ID in WS-TDLIST")'"
          "class='testClass'"
          "'>"
          DISPLAY ITEM-ID IN WS-TDLIST "." SPACE
@@ -217,8 +214,8 @@
          EXIT.
 
        MOVING-FILE-TO-LIST SECTION.
-         MOVE NUMBER-OF-TODOS TO WS-POSITION
          ADD 1 TO NUMBER-OF-TODOS
+         MOVE NUMBER-OF-TODOS TO ITEM-ID IN WS-TDLIST
          MOVE WS-TDLIST TO TODO-ITEM(NUMBER-OF-TODOS)
          PERFORM DISPLAY-ITEM
          EXIT.
