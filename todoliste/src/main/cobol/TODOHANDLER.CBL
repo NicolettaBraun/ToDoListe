@@ -35,6 +35,8 @@
              PERFORM DELETE-TODOLIST
            WHEN ACTION-DELETEITEM
              PERFORM DELETE-ITEM
+           WHEN ACTION-SORTUSER
+             PERFORM SORT-ITEM-BY-USER
            WHEN OTHER
              DISPLAY "Action unbekannt: " TODO-ACTION
            END-EVALUATE
@@ -91,8 +93,8 @@
           MOVE "pos" TO PARAMETER-NAME
           PERFORM READ-PARAMETER-VALUE
           CALL "TODOLISTE" USING TODO-ACTION
-                                 PARAMETER-VALUE
-                                 PARAMETER-VALUE
+                                 ACTIVE-USER
+                                 0
                                  PARAMETER-VALUE
           EXIT.
 
@@ -101,6 +103,10 @@
           EXIT.
 
        DELETE-TODOLIST SECTION.
+          CALL "TODOLISTE" USING TODO-ACTION
+          EXIT.
+
+       SORT-ITEM-BY-USER SECTION.
           CALL "TODOLISTE" USING TODO-ACTION
           EXIT.
 
