@@ -26,15 +26,22 @@
 		}
 		function addToTodolist() {
 			initXmlRequests();
-			var form = document.forms['f1'];
-			var word = form.content.value;
-			var msg = document.querySelector("#userName").value;
-			qstr = 'content=' + escape(word);  // NOTE: no '?' before querystring
-			qstr = qstr + "&action=add"
-			qstr = qstr + '&user=' + msg + "\n"
+			
+			var description = document.getElementById("content").value;
+			
+			var u = document.getElementById("user");
+			var user = u.options[u.selectedIndex].value;
+			
+			var p = document.getElementById("priorität");
+			var prio = p.options[p.selectedIndex].value;
+			
+			qstr = 'content=' + description;
+			qstr = qstr + "&action=add";
+			qstr = qstr + '&user=' + user;
+			qstr = qstr + '&prio=' + prio + "\n"
+			
 			self.xmlHttpReq.send(qstr);
 			setTimeout(showTodoList(), 250);
-			console.log(qstr);
 		}
 		function showTodoList() {
 			initXmlRequests();
@@ -49,7 +56,6 @@
 			qstr = 'pos=' + padLeft(globVarElement,5);
 			qstr = qstr + "&action=deleteitem\n"
 			self.xmlHttpReq.send(qstr);
-			console.log(qstr);
 		}
 		function updatepage(str){
 			document.getElementById("result").innerHTML = str;  
@@ -57,10 +63,18 @@
 		function padLeft(nr, n, str){
 			return Array(n-String(nr).length+1).join(str||'0')+nr;
 		}
+		function sortUser(){
+			initXmlRequests();
+			self.xmlHttpReq.send("action=sortuser\n");
+		}
+		function nothing(){
+			console.log("nicht intigriert");
+		}
+		
 		globVarElement = "00000";
 		function showMenu(str){
 			globVarElement = str;
-			var x = document.getElementById("hiddenMenu");
+			var x = document.getElementById('hiddenMenu');
 			if (x.style.visibility === 'hidden') {
 				x.style.visibility = 'visible';
 			} else {
@@ -68,7 +82,7 @@
 			}
 		}
 		window.onclick = function(event) {
-			if (!event.target.matches('.testClass')) {	
+			if (!event.target.matches('.testClass')&&!event.target.matches('.input')) {	
 				console.log("1");
 				var x = document.getElementById("hiddenMenu");
 				if (x.style.visibility === 'visible') {
@@ -83,25 +97,42 @@
 		
 		<title>ToDo Liste in COBOL</title>
 	</head>
+	
 	<body>
 		Eine ToDo Liste in COBOL<br><p>
-		<form name="f1">
-			<p>Todo hinzuf&uuml;gen: <input name="content" type="text" text="50" onkeydown="if (event.keyCode==13)
-																							   javascript:addToTodolist()"/>
-				<input value="Eintragen" type="button" onclick='javascript:addToTodolist()'>
-				<input name="userName" type="text" text="25" id="userName" class="userName">
-			</p>
-			<p>
-				<input value="Liste löschen" type="button" onclick='javascript:clearList()'>
-			</p>
-				<div id="hiddenMenu" class="result">
-					<input class="ddm" value="Löschen" type="button" onclick='javascript:deleteItem()'>
-					<input class="ddm" value="Due Date" type="button" onclick='javascript:nothing()'>
-					<input class="ddm" value="Priorität" type="button" onclick='javascript:nothing()'>
-					<input class="ddm" value="Status" type="button" onclick='javascript:nothing()'>
-				</div>
-				</p>
-				<div id="result" class="result"></div>
+		
+		<form id="input" class="input">
+			<div>
+				<p>ToDo:  <input value="ToDo" type="text" id="content" class="content"> </p>
+				<p>User:  <select id="user" class="user">
+							<option value="Tick" selected>Tick</option>
+							<option value="Trick">Trick</option>
+							<option value="Track">Track</option>
+							<option value="others">others</option>
+						</select> </p>
+				<p>DueDate:  <input value="nicht intigriert" type="text" id="dueDate" class="dueDate"> </p>
+				<p>Priorität:  <select id="priorität" class="priorität">
+						  <option value="5">Hoch</option>
+						  <option value="4">Mittel</option>
+						  <option value="3">Niedrig</option>
+						  <option value="2" selected>-------</option>
+						</select></p>
+			</div>
 		</form>
+		
+		<p>
+		<input value="Hinzufügen" type="button" onclick='javascript:addToTodolist()'>
+		<input value="Liste löschen" type="button" onclick='javascript:clearList()'>
+		<input value="Sortieren " type="button" onclick='javascript:sortUser()'>
+		</p>
+		
+		<div id="hiddenMenu" class="result">
+			<input class="ddm" value="Löschen" type="button" onclick='javascript:deleteItem()'>
+			<input class="ddm" value="Due Date" type="button" onclick='javascript:nothing()'>
+			<input class="ddm" value="Priorität" type="button" onclick='javascript:nothing()'>
+			<input class="ddm" value="Status" type="button" onclick='javascript:nothing()'>
+		</div>
+				
+		<div id="result" class="result"></div>
 	</body>
 </html>
