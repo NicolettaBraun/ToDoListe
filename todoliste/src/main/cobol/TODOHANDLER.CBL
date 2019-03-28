@@ -85,9 +85,6 @@
            PERFORM READ-PARAMETER-VALUE
            MOVE PARAMETER-VALUE TO ITEM-PRIO
 
-
-
-
            CALL "TODOLISTE" USING TODO-ACTION
                                   ACTIVE-USER
                                   NEW-ITEM-DESCRIPTION
