@@ -157,6 +157,8 @@
          "onClick='javascript:showMenu("WS-POSITION")'"
          "class='testClass'"
          "'>"
+         USER IN WS-TDLIST
+         DISPLAY ""
          DESCRIPTION IN WS-TDLIST
       *  "<input value='test' type='button'>"
          "</li>"
