@@ -2,3 +2,4 @@
        01 ACTIVE-USER PIC X(10).
        01 ITEM-PRIO PIC X.
        01 ITEM-TO-DELETE PIC 9(5).
+       01 WHICH-KIND-SORT PIC X(10).
