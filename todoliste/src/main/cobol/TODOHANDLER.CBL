@@ -99,7 +99,7 @@
           CALL "TODOLISTE" USING TODO-ACTION
                                  ACTIVE-USER
                                  0
-                                 PARAMETER-VALUE
+                                 ITEM-TO-DELETE
                                  0
                                  WHICH-KIND-SORT
 
