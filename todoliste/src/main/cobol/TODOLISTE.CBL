@@ -152,8 +152,8 @@
               PERFORM READ-TODOLIST-FROM-FILE
               PERFORM DELETE-ITEM
               PERFORM WRITE-IN-FILE-AFTER-CHANGE
-           WHEN ACTION-SORTUSER
-              PERFORM WHICH-SORT
+           WHEN ACTION-SORT
+              PERFORM SORT-USER
            END-EVALUATE
            GOBACK
          .
@@ -262,15 +262,17 @@
          EXIT.
 
        WHICH-SORT SECTION.
-         EVALUATE TRUE
-         WHEN WHICH-KIND-SORT = 'user'
+         DISPLAY WHICH-KIND-SORT UPON SYSERR
+         EVALUATE WHICH-KIND-SORT
+         WHEN "user"
            PERFORM SORT-USER
-         WHEN WHICH-KIND-SORT = 'category'
+         WHEN "category"
            PERFORM SORT-CATEGORY
          END-EVALUATE
          EXIT.
 
        SORT-USER SECTION.
+         DISPLAY "glos" UPON SYSERR
          SORT TDLIST-WORK ON ASCENDING KEY USER IN TDLIST-FILE USING
            TDLIST GIVING TDLIST
          EXIT.

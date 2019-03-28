@@ -35,7 +35,7 @@
              PERFORM DELETE-TODOLIST
            WHEN ACTION-DELETEITEM
              PERFORM DELETE-ITEM
-           WHEN ACTION-SORTUSER
+           WHEN ACTION-SORT
              PERFORM SORT-ITEM
            WHEN OTHER
              DISPLAY "Action unbekannt: " TODO-ACTION
@@ -117,14 +117,7 @@
           EXIT.
 
        SORT-ITEM SECTION.
-          MOVE "sorttype" TO PARAMETER-NAME
-          PERFORM READ-PARAMETER-VALUE
           CALL "TODOLISTE" USING TODO-ACTION
-                                 ACTIVE-USER
-                                 0
-                                 0
-                                 0
-                                 WHICH-KIND-SORT
           EXIT.
 
        END PROGRAM TODOHANDLER.
