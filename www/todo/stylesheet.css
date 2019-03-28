@@ -3,7 +3,7 @@ li {
 	clear: both;
 }
 .input{
-	background: #E8E8E8;
+	background: #d1d8e0;
 	margin-left: 20px;
 	transform: rotate(-3deg);
 	width: 230px;
@@ -16,10 +16,15 @@ li {
 	padding-left: 8px;
 	
 }
-.hinzufügen{
-	padding: 0;
+.button{
+	padding: 0.6em;
 	border: none;
-	background: none;
+	background: #26de81;
+	width: 100px;
+	border-radius: 20px;
+	color:#fff;
+	font-weight: 600;
+	
 	
 }
 
