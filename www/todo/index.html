@@ -65,6 +65,17 @@
 				x.style.visibility = 'hidden';
 			}
 		}
+		window.onclick = function(event) {
+			if (!event.target.matches('.testClass')) {	
+				console.log("1");
+				var x = document.getElementById("hiddenMenu");
+				if (x.style.visibility === 'visible') {
+					x.style.visibility = 'hidden';
+				}
+			}
+		}
+		
+		
 		window.onload = showTodoList;
 		</script>
 		
@@ -77,14 +88,14 @@
 																							   javascript:addToTodolist()"/>
 				<input value="Eintragen" type="button" onclick='javascript:addToTodolist()'></p>
 				<input value="Liste löschen" type="button" onclick='javascript:clearList()'>
-				<div id="hiddenMenu">
-					<input value="Löschen" type="button" onclick='javascript:deleteItem()'>
-					<input value="Due Date" type="button" onclick='javascript:deleteItem()'>
-					<input value="Priorität" type="button" onclick='javascript:deleteItem()'>
-					<input value="Status" type="button" onclick='javascript:deleteItem()'>
+				<div id="hiddenMenu" class="result">
+					<input class="ddm" value="Löschen" type="button" onclick='javascript:deleteItem()'>
+					<input class="ddm" value="Due Date" type="button" onclick='javascript:nothing()'>
+					<input class="ddm" value="Priorität" type="button" onclick='javascript:nothing()'>
+					<input class="ddm" value="Status" type="button" onclick='javascript:nothing()'>
 				</div>
 				</p>
-				<div id="result"></div>
+				<div id="result" class="result"></div>
 		</form>
 	</body>
 </html>
