@@ -35,7 +35,7 @@
              PERFORM DELETE-TODOLIST
            WHEN ACTION-DELETEITEM
              PERFORM DELETE-ITEM
-           WHEN ACTION-SORTUSER
+           WHEN ACTION-SORT
              PERFORM SORT-ITEM-BY-USER
            WHEN OTHER
              DISPLAY "Action unbekannt: " TODO-ACTION
