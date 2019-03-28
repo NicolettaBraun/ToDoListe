@@ -2,7 +2,28 @@ li {
 	float: left; 
 	clear: both;
 }
-#hiddenMenu {
+.input{
+	background: #E8E8E8;
+	margin-left: 20px;
+	transform: rotate(-3deg);
+	width: 230px;
+	padding-bottom: 0.1em;
+    padding-top: 0.1em;
+    padding-left: 1em;
+}
+.input div{
+	transform: rotate(3deg);
+	padding-left: 8px;
+	
+}
+.hinzufügen{
+	padding: 0;
+	border: none;
+	background: none;
+	
+}
+
+.hiddenMenu {
 	visibility: hidden;
 	
 }
