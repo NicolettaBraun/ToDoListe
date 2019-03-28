@@ -85,14 +85,11 @@
            PERFORM READ-PARAMETER-VALUE
            MOVE PARAMETER-VALUE TO ITEM-PRIO
 
-
-
-
            CALL "TODOLISTE" USING TODO-ACTION
                                   ACTIVE-USER
                                   NEW-ITEM-DESCRIPTION
-                                  ITEM-PRIO
                                   0
+                                  ITEM-PRIO
                                   WHICH-KIND-SORT
           EXIT.
 
@@ -102,8 +99,8 @@
           CALL "TODOLISTE" USING TODO-ACTION
                                  ACTIVE-USER
                                  0
-                                 0
                                  PARAMETER-VALUE
+                                 0
                                  WHICH-KIND-SORT
 
           EXIT.
