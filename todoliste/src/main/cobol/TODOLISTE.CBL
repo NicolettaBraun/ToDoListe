@@ -9,8 +9,6 @@
             ORGANIZATION IS LINE SEQUENTIAL.
          SELECT PRINT-FILE ASSIGN TO 'todolist.txt'
             ORGANIZATION IS LINE SEQUENTIAL.
-         SELECT TDLIST-WORK ASSIGN TO 'testsort.txt'
-             ORGANIZATION IS LINE SEQUENTIAL.
        DATA DIVISION.
        FILE SECTION.
           FD TDLIST.
@@ -40,34 +38,6 @@
                          20  DUE-MILLISECONDS PIC 9(02).
               10 CATEGORY PIC 9.
               10 DESCRIPTION PIC X(35).
-          SD TDLIST-WORK.
-          01 TDLIST-FILE-W.
-              10 ITEM-ID-W PIC 9(5).
-              10 USER-W PIC X(10) VALUE "TEST".
-              10 ADDED-W.
-                    15 ADDED-DATE-W.
-                         20  ADDED-YEAR-W         PIC 9(04).
-                         20  FILLER             PIC X(01)  VALUE "-".
-                         20  ADDED-MONTH-W        PIC 9(02).
-                         20  ADDED-DAY-W          PIC 9(02).
-                    15 ADDED-TIME-W.
-                         20  ADDED-HOURS-W        PIC 9(02).
-                         20  ADDED-MINUTE-W       PIC 9(02).
-                         20  ADDED-SECOND-W       PIC 9(02).
-                         20  ADDED-MILLISECONDS-W PIC 9(02).
-              10 DUE-W.
-                    15 DUE-DATE-W.
-                         20  DUE-YEAR-W         PIC 9(04).
-                         20  DUE              PIC X(01)  VALUE "-".
-                         20  DUE-MONTH-W        PIC 9(02).
-                         20  DUE-DAY-W          PIC 9(02).
-                    15 DUE-TIME-W.
-                         20  DUE-HOURS-W        PIC 9(02).
-                         20  DUE-MINUTE-W       PIC 9(02).
-                         20  DUE-SECOND-W       PIC 9(02).
-                         20  DUE-MILLISECONDS-W PIC 9(02).
-              10 CATEGORY-W PIC 9.
-              10 DESCRIPTION-W PIC X(35).
        WORKING-STORAGE SECTION.
        01 TEMP-FIELDS.
         05  NUMBER-OF-TODOS         PIC 9(3) VALUE 0.
@@ -140,7 +110,7 @@
         COPY TODOITEM.
 
        PROCEDURE DIVISION USING TODO-ACTION ACTIVE-USER
-             NEW-ITEM-DESCRIPTION ITEM-TO-DELETE.
+             NEW-ITEM-DESCRIPTION ITEM-PRIO ITEM-TO-DELETE.
            EVALUATE TRUE
            WHEN ACTION-SHOW
               PERFORM READ-TODOLIST-FROM-FILE
