@@ -9,13 +9,14 @@
             ORGANIZATION IS LINE SEQUENTIAL.
          SELECT PRINT-FILE ASSIGN TO 'todolist.txt'
             ORGANIZATION IS LINE SEQUENTIAL.
-         SELECT TDLIST-WORK ASSIGN TO 'testsort.txt'
-             ORGANIZATION IS LINE SEQUENTIAL.
+         SELECT TDLIST-WORK ASSIGN TO 'wrk.txt'.
+         SELECT TDLIST-2 ASSIGN TO 'tdlist-2.txt'
+            ORGANIZATION IS LINE SEQUENTIAL.
        DATA DIVISION.
        FILE SECTION.
           FD TDLIST.
           01 TDLIST-FILE.
-              10 ITEM-ID PIC 9(5).
+              10 ITEM-ID PIC 9(3).
               10 USER PIC X(10).
               10 PRIO PIC X.
               10 ADDED.
@@ -40,9 +41,36 @@
                          20  DUE-MILLISECONDS PIC 9(02).
               10 CATEGORY PIC 9.
               10 DESCRIPTION PIC X(35).
+          FD TDLIST-2.
+          01 TDLIST-FILE-2.
+              10 ITEM-ID-2 PIC 9(3).
+              10 USER-2 PIC X(10).
+              10 PRIO-2 PIC X.
+              10 ADDED-2.
+                    15 ADDED-DATE-2.
+                         20  ADDED-YEAR-2         PIC 9(04).
+                         20  ADDED-MONTH-2        PIC 9(02).
+                         20  ADDED-DAY-2          PIC 9(02).
+                    15 ADDED-TIME-2.
+                         20  ADDED-HOURS-2        PIC 9(02).
+                         20  ADDED-MINUTE-2       PIC 9(02).
+                         20  ADDED-SECOND-2       PIC 9(02).
+                         20  ADDED-MILLISECONDS-2 PIC 9(02).
+              10 DUE-2.
+                    15 DUE-DATE-2.
+                         20  DUE-YEAR-2         PIC 9(04).
+                         20  DUE-MONTH-2        PIC 9(02).
+                         20  DUE-DAY-2          PIC 9(02).
+                    15 DUE-TIME-2.
+                         20  DUE-HOURS-2        PIC 9(02).
+                         20  DUE-MINUTE-2       PIC 9(02).
+                         20  DUE-SECOND-2       PIC 9(02).
+                         20  DUE-MILLISECONDS-2 PIC 9(02).
+              10 CATEGORY-2 PIC 9.
+              10 DESCRIPTION-2 PIC X(35).
           SD TDLIST-WORK.
           01 TDLIST-FILE-W.
-              10 ITEM-ID-W PIC 9(5).
+              10 ITEM-ID-W PIC 9(3).
               10 USER-W PIC X(10) VALUE "TEST".
               10 ADDED-W.
                     15 ADDED-DATE-W.
@@ -287,14 +315,15 @@
          EXIT.
 
        SORT-USER SECTION.
-      *   DISPLAY "Ich bin in Sort User" UPON SYSERR
-         SORT TDLIST-WORK ON ASCENDING KEY USER IN TDLIST-FILE WITH
-         DUPLICATES IN ORDER USING TDLIST GIVING TDLIST
+         SORT TDLIST-WORK ON ASCENDING KEY USER IN TDLIST
+         USING TDLIST
+         GIVING TDLIST
          EXIT.
 
        SORT-CATEGORY SECTION.
-         SORT TDLIST-WORK ON ASCENDING KEY CATEGORY IN TDLIST-FILE WITH
-         DUPLICATES IN ORDER USING TDLIST GIVING TDLIST
+         SORT TDLIST-WORK ON ASCENDING KEY CATEGORY IN TDLIST-FILE
+         USING TDLIST
+         GIVING TDLIST
          EXIT.
 
        END PROGRAM TODOLISTE.
