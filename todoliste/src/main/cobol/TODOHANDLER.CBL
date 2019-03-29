@@ -15,6 +15,14 @@
        WORKING-STORAGE SECTION.
        01 IN-STATUS            PIC 9999.
        01 NEWLINE              PIC X     VALUE X'0A'.
+       01 DATE-FORMAT.
+          05 DATE-YEAR PIC 9999.
+          05 FILLER PIC X VALUE "-".
+          05 DATE-MONTH PIC 99.
+          05 FILLER PIC X VALUE "-".
+          05 DATE-DAY PIC 99.
+          05 FILLER PIC X VALUE "-".
+
        COPY TODOACTIONS.
        COPY CGIUTILDATA.
        COPY TODOITEM.
@@ -37,6 +45,8 @@
              PERFORM DELETE-ITEM
            WHEN ACTION-SORT
              PERFORM SORT-ITEM
+           WHEN ACTION-modify
+             PERFORM MODIFY-ITEM
            WHEN OTHER
              DISPLAY "Action unbekannt: " TODO-ACTION
            END-EVALUATE
@@ -71,36 +81,49 @@
            MOVE PARAMETER-VALUE TO TODO-ACTION
           EXIT.
 
+       READ-ITEM SECTION.
+         MOVE "content" TO PARAMETER-NAME
+         PERFORM READ-PARAMETER-VALUE
+         MOVE PARAMETER-VALUE TO DESCRIPTION
+
+         MOVE "user" TO PARAMETER-NAME
+         PERFORM READ-PARAMETER-VALUE
+         MOVE PARAMETER-VALUE TO USER
+
+         MOVE "prio" TO PARAMETER-NAME
+         PERFORM READ-PARAMETER-VALUE
+         MOVE PARAMETER-VALUE TO PRIO
+
+         MOVE "duedate" TO PARAMETER-NAME
+         PERFORM READ-PARAMETER-VALUE
+         DISPLAY PARAMETER-VALUE UPON SYSERR
+         MOVE PARAMETER-VALUE TO DATE-FORMAT
+         MOVE DATE-YEAR TO DUE-YEAR
+         MOVE DATE-MONTH TO DUE-MONTH
+         MOVE DATE-DAY TO DUE-DAY
+         EXIT.
+
+
        ADD-TODOLIST-ENTRY SECTION.
-           MOVE "content" TO PARAMETER-NAME
-           PERFORM READ-PARAMETER-VALUE
-           MOVE PARAMETER-VALUE TO DESCRIPTION
-
-           MOVE "user" TO PARAMETER-NAME
-           PERFORM READ-PARAMETER-VALUE
-           MOVE PARAMETER-VALUE TO USER
-
-
-           MOVE "prio" TO PARAMETER-NAME
-           PERFORM READ-PARAMETER-VALUE
-           MOVE PARAMETER-VALUE TO PRIO
-
+           PERFORM READ-ITEM
            MOVE FUNCTION CURRENT-DATE TO ADDED
 
 
            CALL "TODOLISTE" USING TODO-ACTION
                                   TD-ITEM
-                                  ITEM-TO-DELETE
                                   WHICH-KIND-SORT
           EXIT.
 
-       DELETE-ITEM SECTION.
+       READ-POS SECTION.
           MOVE "pos" TO PARAMETER-NAME
           PERFORM READ-PARAMETER-VALUE
-          MOVE PARAMETER-VALUE to ITEM-TO-DELETE
+          MOVE PARAMETER-VALUE TO ITEM-ID
+          EXIT.
+
+       DELETE-ITEM SECTION.
+          PERFORM READ-POS
           CALL "TODOLISTE" USING TODO-ACTION
                                  TD-ITEM
-                                 ITEM-TO-DELETE
                                  WHICH-KIND-SORT
 
           EXIT.
@@ -114,14 +137,22 @@
           EXIT.
 
        SORT-ITEM SECTION.
-      *    MOVE "user" TO PARAMETER-NAME
-      *    PERFORM READ-PARAMETER-VALUE
-      *    DISPLAY PARAMETER-VALUE UPON SYSERR
-          MOVE "user" TO WHICH-KIND-SORT
+          MOVE "sorttype" TO PARAMETER-NAME
+          PERFORM READ-PARAMETER-VALUE
+          DISPLAY PARAMETER-VALUE UPON SYSERR
+          MOVE PARAMETER-VALUE TO WHICH-KIND-SORT
           CALL "TODOLISTE" USING TODO-ACTION
                                  TD-ITEM
-                                 ITEM-TO-DELETE
                                  WHICH-KIND-SORT
           EXIT.
+
+       MODIFY-ITEM SECTION.
+          PERFORM READ-ITEM
+          PERFORM READ-POS
+          CALL "TODOLISTE" USING TODO-ACTION
+                                 TD-ITEM
+                                 WHICH-KIND-SORT
+          EXIT.
+
 
        END PROGRAM TODOHANDLER.
