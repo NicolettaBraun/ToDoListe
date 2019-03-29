@@ -173,8 +173,6 @@
 
          PERFORM DISPLAY-PRIO
 
-         DISPLAY ITEM-ID IN WS-TDLIST "." SPACE
-
          DISPLAY SPACE
 
       *   MOVE ADDED IN WS-TDLIST TO DISPLAY-DATE-TIME
@@ -194,18 +192,15 @@
                 DISPLAY DISPLAY-YEAR
                 "-" DISPLAY-MONTH
                 "-" DISPLAY-DAY
-                SPACE
-                " " DISPLAY-HOURS
-                ":" DISPLAY-MINUTE
          EXIT.
 
        DISPLAY-PRIO SECTION.
           EVALUATE PRIO IN WS-TDLIST
-             WHEN "5" DISPLAY "<font color='red'> Hoch"
-             WHEN "4" DISPLAY "<font color='yellow'> Mittel"
-             WHEN "3" DISPLAY "<font color='green'> Gering"
-             WHEN "2" DISPLAY "<font color='black'> Egal"
-             WHEN "0" DISPLAY "<font color='blue'> Erledigt"
+             WHEN "5" DISPLAY "<font color='red'>"
+             WHEN "4" DISPLAY "<font color='yellow'>"
+             WHEN "3" DISPLAY "<font color='green'>"
+             WHEN "2" DISPLAY "<font color='black'>"
+             WHEN "0" DISPLAY "<font color='blue'>"
              WHEN OTHER DISPLAY SPACE
           END-EVALUATE
          EXIT.
