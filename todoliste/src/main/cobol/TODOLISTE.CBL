@@ -25,8 +25,6 @@
                     15 ADDED-TIME.
                          20  ADDED-HOURS        PIC 9(02).
                          20  ADDED-MINUTE       PIC 9(02).
-                         20  ADDED-SECOND       PIC 9(02).
-                         20  ADDED-MILLISECONDS PIC 9(02).
               10 DUE.
                     15 DUE-DATE.
                          20  DUE-YEAR         PIC 9(04).
@@ -35,14 +33,13 @@
                     15 DUE-TIME.
                          20  DUE-HOURS        PIC 9(02).
                          20  DUE-MINUTE       PIC 9(02).
-                         20  DUE-SECOND       PIC 9(02).
-                         20  DUE-MILLISECONDS PIC 9(02).
               10 CATEGORY PIC 9.
               10 DESCRIPTION PIC X(35).
           SD TDLIST-WORK.
           01 TDLIST-FILE-W.
               10 ITEM-ID-W PIC 9(3).
               10 USER-W PIC X(10) VALUE "TEST".
+              10 PRIO-W PIC X.
               10 ADDED-W.
                     15 ADDED-DATE-W.
                          20  ADDED-YEAR-W         PIC 9(04).
@@ -51,8 +48,6 @@
                     15 ADDED-TIME-W.
                          20  ADDED-HOURS-W        PIC 9(02).
                          20  ADDED-MINUTE-W       PIC 9(02).
-                         20  ADDED-SECOND-W       PIC 9(02).
-                         20  ADDED-MILLISECONDS-W PIC 9(02).
               10 DUE-W.
                     15 DUE-DATE-W.
                          20  DUE-YEAR-W         PIC 9(04).
@@ -61,8 +56,6 @@
                     15 DUE-TIME-W.
                          20  DUE-HOURS-W        PIC 9(02).
                          20  DUE-MINUTE-W       PIC 9(02).
-                         20  DUE-SECOND-W       PIC 9(02).
-                         20  DUE-MILLISECONDS-W PIC 9(02).
               10 CATEGORY-W PIC 9.
               10 DESCRIPTION-W PIC X(35).
        WORKING-STORAGE SECTION.
@@ -83,8 +76,6 @@
                       15 ADDED-TIME.
                            20  ADDED-HOURS        PIC 9(02).
                            20  ADDED-MINUTE       PIC 9(02).
-                           20  ADDED-SECOND       PIC 9(02).
-                           20  ADDED-MILLISECONDS PIC 9(02).
                 10 DUE.
                       15 DUE-DATE.
                            20  DUE-YEAR         PIC 9(04).
@@ -93,8 +84,6 @@
                       15 DUE-TIME.
                            20  DUE-HOURS        PIC 9(02).
                            20  DUE-MINUTE       PIC 9(02).
-                           20  DUE-SECOND       PIC 9(02).
-                           20  DUE-MILLISECONDS PIC 9(02).
                 10 CATEGORY PIC 9 VALUE 0.
                   88 None VALUE 0.
                 10 DESCRIPTION PIC X(35).
