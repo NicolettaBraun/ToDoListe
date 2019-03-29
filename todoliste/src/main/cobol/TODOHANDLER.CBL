@@ -74,20 +74,22 @@
        ADD-TODOLIST-ENTRY SECTION.
            MOVE "content" TO PARAMETER-NAME
            PERFORM READ-PARAMETER-VALUE
-           MOVE PARAMETER-VALUE TO NEW-ITEM-DESCRIPTION
+           MOVE PARAMETER-VALUE TO DESCRIPTION
 
            MOVE "user" TO PARAMETER-NAME
            PERFORM READ-PARAMETER-VALUE
-           MOVE PARAMETER-VALUE TO ACTIVE-USER
+           MOVE PARAMETER-VALUE TO USER
 
 
            MOVE "prio" TO PARAMETER-NAME
            PERFORM READ-PARAMETER-VALUE
-           MOVE PARAMETER-VALUE TO ITEM-PRIO
+           MOVE PARAMETER-VALUE TO PRIO
+
+           MOVE FUNCTION CURRENT-DATE TO ADDED
 
 
            CALL "TODOLISTE" USING TODO-ACTION
-                                  NEW-ITEM
+                                  TD-ITEM
                                   ITEM-TO-DELETE
                                   WHICH-KIND-SORT
           EXIT.
@@ -95,8 +97,9 @@
        DELETE-ITEM SECTION.
           MOVE "pos" TO PARAMETER-NAME
           PERFORM READ-PARAMETER-VALUE
+          MOVE PARAMETER-VALUE to ITEM-TO-DELETE
           CALL "TODOLISTE" USING TODO-ACTION
-                                 NEW-ITEM
+                                 TD-ITEM
                                  ITEM-TO-DELETE
                                  WHICH-KIND-SORT
 
@@ -116,7 +119,7 @@
       *    DISPLAY PARAMETER-VALUE UPON SYSERR
           MOVE "user" TO WHICH-KIND-SORT
           CALL "TODOLISTE" USING TODO-ACTION
-                                 NEW-ITEM
+                                 TD-ITEM
                                  ITEM-TO-DELETE
                                  WHICH-KIND-SORT
           EXIT.
