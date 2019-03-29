@@ -267,8 +267,6 @@
          EXIT.
 
        WHICH-SORT SECTION.
-         DISPLAY "Ich bin in Which Sort" UPON SYSERR
-         DISPLAY WHICH-KIND-SORT UPON SYSERR
          EVALUATE WHICH-KIND-SORT
          WHEN "user"
            PERFORM SORT-USER
