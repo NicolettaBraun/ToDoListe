@@ -113,7 +113,7 @@
        DELETE-ITEM SECTION.
           MOVE "pos" TO PARAMETER-NAME
           PERFORM READ-PARAMETER-VALUE
-          MOVE PARAMETER-VALUE to ITEM-TO-DELETE
+          MOVE PARAMETER-VALUE TO ITEM-TO-DELETE
           CALL "TODOLISTE" USING TODO-ACTION
                                  TD-ITEM
                                  ITEM-TO-DELETE
@@ -130,10 +130,10 @@
           EXIT.
 
        SORT-ITEM SECTION.
-      *    MOVE "user" TO PARAMETER-NAME
-      *    PERFORM READ-PARAMETER-VALUE
-      *    DISPLAY PARAMETER-VALUE UPON SYSERR
-          MOVE "user" TO WHICH-KIND-SORT
+          MOVE "sorttype" TO PARAMETER-NAME
+          PERFORM READ-PARAMETER-VALUE
+          DISPLAY PARAMETER-VALUE UPON SYSERR
+          MOVE PARAMETER-VALUE TO WHICH-KIND-SORT
           CALL "TODOLISTE" USING TODO-ACTION
                                  TD-ITEM
                                  ITEM-TO-DELETE
