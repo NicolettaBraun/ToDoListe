@@ -4,3 +4,4 @@
           88 ACTION-DELETE VALUE "delete".
           88 ACTION-DELETEITEM VALUE "deleteitem".
           88 ACTION-SORT VALUE "sort".
+          88 ACTION-MODIFY VALUE "modify".

@@ -45,6 +45,8 @@
              PERFORM DELETE-ITEM
            WHEN ACTION-SORT
              PERFORM SORT-ITEM
+           WHEN ACTION-modify
+             PERFORM MODIFY-ITEM
            WHEN OTHER
              DISPLAY "Action unbekannt: " TODO-ACTION
            END-EVALUATE
@@ -79,28 +81,31 @@
            MOVE PARAMETER-VALUE TO TODO-ACTION
           EXIT.
 
+       READ-ITEM SECTION.
+         MOVE "content" TO PARAMETER-NAME
+         PERFORM READ-PARAMETER-VALUE
+         MOVE PARAMETER-VALUE TO DESCRIPTION
+
+         MOVE "user" TO PARAMETER-NAME
+         PERFORM READ-PARAMETER-VALUE
+         MOVE PARAMETER-VALUE TO USER
+
+         MOVE "prio" TO PARAMETER-NAME
+         PERFORM READ-PARAMETER-VALUE
+         MOVE PARAMETER-VALUE TO PRIO
+
+         MOVE "duedate" TO PARAMETER-NAME
+         PERFORM READ-PARAMETER-VALUE
+         DISPLAY PARAMETER-VALUE UPON SYSERR
+         MOVE PARAMETER-VALUE TO DATE-FORMAT
+         MOVE DATE-YEAR TO DUE-YEAR
+         MOVE DATE-MONTH TO DUE-MONTH
+         MOVE DATE-DAY TO DUE-DAY
+         EXIT.
+
+
        ADD-TODOLIST-ENTRY SECTION.
-           MOVE "content" TO PARAMETER-NAME
-           PERFORM READ-PARAMETER-VALUE
-           MOVE PARAMETER-VALUE TO DESCRIPTION
-
-           MOVE "user" TO PARAMETER-NAME
-           PERFORM READ-PARAMETER-VALUE
-           MOVE PARAMETER-VALUE TO USER
-
-
-           MOVE "prio" TO PARAMETER-NAME
-           PERFORM READ-PARAMETER-VALUE
-           MOVE PARAMETER-VALUE TO PRIO
-
-           MOVE "duedate" TO PARAMETER-NAME
-           PERFORM READ-PARAMETER-VALUE
-           DISPLAY PARAMETER-VALUE UPON SYSERR
-           MOVE PARAMETER-VALUE TO DATE-FORMAT
-           MOVE DATE-YEAR TO DUE-YEAR
-           MOVE DATE-MONTH TO DUE-MONTH
-           MOVE DATE-DAY TO DUE-DAY
-
+          PERFORM READ-ITEM
            MOVE FUNCTION CURRENT-DATE TO ADDED
 
 
@@ -110,10 +115,14 @@
                                   WHICH-KIND-SORT
           EXIT.
 
-       DELETE-ITEM SECTION.
+       READ-POS SECTION.
           MOVE "pos" TO PARAMETER-NAME
           PERFORM READ-PARAMETER-VALUE
           MOVE PARAMETER-VALUE TO ITEM-TO-DELETE
+          EXIT.
+
+       DELETE-ITEM SECTION.
+          PERFORM READ-POS
           CALL "TODOLISTE" USING TODO-ACTION
                                  TD-ITEM
                                  ITEM-TO-DELETE
@@ -139,5 +148,15 @@
                                  ITEM-TO-DELETE
                                  WHICH-KIND-SORT
           EXIT.
+
+       MODIFY-ITEM SECTION.
+          PERFORM READ-ITEM
+          PERFORM READ-POS
+          CALL "TODOLISTE" USING TODO-ACTION
+                                 TD-ITEM
+                                 ITEM-TO-DELETE
+                                 WHICH-KIND-SORT
+          EXIT.
+
 
        END PROGRAM TODOHANDLER.
