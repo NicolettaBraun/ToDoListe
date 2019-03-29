@@ -35,10 +35,14 @@
 			var p = document.getElementById("priorität");
 			var prio = p.options[p.selectedIndex].value;
 			
+			var d = document.getElementById("dueDate");
+			var date = d.value;
+			
 			qstr = "content=" + description;
 			qstr = qstr + "&action=add";
 			qstr = qstr + "&user=" + user;
-			qstr = qstr + "&prio=" + prio + "\n"
+			qstr = qstr + "&prio=" + prio;
+			qstr = qstr + "&duedate=" + date + "\n"
 			
 			self.xmlHttpReq.send(qstr);
 			showTodoList();
@@ -58,6 +62,7 @@
 			qstr = "pos=" + padLeft(globVarElement,5);
 			qstr = qstr + "&action=deleteitem\n"
 			self.xmlHttpReq.send(qstr);
+			initXmlRequests();
 			console.log(qstr);
 		}
 		function updatepage(str){
@@ -117,9 +122,7 @@
 		<div id="form" class="form">
 			<div id="input" class="input">
 				<div id="eingabe" class="eingabe">
-					<p>ToDo:  <input value="ToDo" type="text" id="content" class="content"
-								onkeypress = "if (event.keyCode == 13)
-												javascript:'addToTodolist()'"> </p>
+					<p>ToDo:  <input value="ToDo" type="text" id="content" class="content" onkeypress = "if (event.keyCode == 13){javascript:addToTodolist()}"> </p>
 					<p>User:  <select id="user" class="user">
 								<option value="Tick" selected>Tick</option>
 								<option value="Trick">Trick</option>
