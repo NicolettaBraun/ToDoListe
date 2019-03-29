@@ -167,7 +167,7 @@
         COPY TODOACTIONS.
         COPY TODOITEM.
 
-       PROCEDURE DIVISION USING TODO-ACTION NEW-ITEM ITEM-TO-DELETE
+       PROCEDURE DIVISION USING TODO-ACTION TD-ITEM ITEM-TO-DELETE
              WHICH-KIND-SORT.
            EVALUATE TRUE
            WHEN ACTION-SHOW
@@ -196,11 +196,7 @@
 
 
        ADD-ITEM-TO-LIST SECTION.
-           MOVE NEW-ITEM-DESCRIPTION TO DESCRIPTION IN WS-TDLIST
-           MOVE FUNCTION CURRENT-DATE TO ADDED IN WS-TDLIST
-           MOVE ACTIVE-USER TO USER IN WS-TDLIST
-           MOVE ITEM-PRIO TO PRIO IN WS-TDLIST
-           MOVE 0 TO CATEGORY IN WS-TDLIST
+           MOVE TD-ITEM TO WS-TDLIST
 
            PERFORM MOVING-FILE-TO-LIST
            EXIT.
@@ -215,9 +211,10 @@
          "onClick='javascript:showMenu("ITEM-ID in WS-TDLIST")'"
          "class='testClass'"
          "'>"
-         DISPLAY ITEM-ID IN WS-TDLIST "." SPACE
-
+         
          PERFORM DISPLAY-PRIO
+ 
+         DISPLAY ITEM-ID IN WS-TDLIST "." SPACE
 
          DISPLAY SPACE
 
@@ -227,7 +224,7 @@
          DISPLAY SPACE USER IN WS-TDLIST
          SPACE
          DESCRIPTION IN WS-TDLIST
-         "</li>"
+         "</font></li>"
          EXIT.
 
        DISPLAY-FORMATTED-TIME SECTION.
@@ -242,11 +239,11 @@
 
        DISPLAY-PRIO SECTION.
           EVALUATE PRIO IN WS-TDLIST
-             WHEN "5" DISPLAY "Hoch"
-             WHEN "4" DISPLAY "Mittel"
-             WHEN "3" DISPLAY "Niedrig"
-             WHEN "2" DISPLAY "Ignoriert"
-             WHEN "0" DISPLAY "Erledigt"
+             WHEN "5" DISPLAY "<font color='red'> Hoch"
+             WHEN "4" DISPLAY "<font color='yellow'> Mittel"
+             WHEN "3" DISPLAY "<font color='green'> Gering"
+             WHEN "2" DISPLAY "<font color='black'> Egal"
+             WHEN "0" DISPLAY "<font color='blue'> Erledigt"
              WHEN OTHER DISPLAY SPACE
           END-EVALUATE
          EXIT.
