@@ -79,40 +79,40 @@
 			showTodoList();
 			console.log(qstr);
 		}
-		function nothing(){
-			console.log("nicht intigriert");
+		function doNothing(){
+			console.log("noch nicht intigriert :(");
 		}
 		
 		globVarElement = "00000";
 		function showMenu(str){
 			globVarElement = str;
-			var x = document.getElementById('hiddenMenu1');
-			if (x.style.getPropertyValue('display') === 'block') {
+			var x = document.getElementById('hiddenMenu');
+			if (x.style.getPropertyValue('display') === 'grid') {
 				x.style.setProperty('display', 'none');
 			} else {
-				x.style.setProperty('display', 'block');
+				x.style.setProperty('display', 'grid');
 			}
 		}
 		function showSort(){
-			var x = document.getElementById('hiddenSort1');
-			if (x.style.getPropertyValue('display') === 'block') {
+			var x = document.getElementById('hiddenSort');
+			if (x.style.getPropertyValue('display') === 'grid') {
 				x.style.setProperty('display', 'none');
 			} else {
-				x.style.setProperty('display', 'block');
+				x.style.setProperty('display', 'grid');
 			}
 		}
 		window.onclick = function(event) {
 			if (!event.target.matches('.testClass')) {	
 				console.log("1");
-				var x = document.getElementById("hiddenMenu1");
-				if (x.style.getPropertyValue('display') === 'block') {
+				var x = document.getElementById("hiddenMenu");
+				if (x.style.getPropertyValue('display') === 'grid') {
 					x.style.setProperty('display', 'none');
 				}
 			}
 			if(!event.target.matches('#bsort')){
 				console.log("2");
-				var x = document.getElementById("hiddenSort1");
-				if (x.style.getPropertyValue('display') === 'block') {
+				var x = document.getElementById("hiddenSort");
+				if (x.style.getPropertyValue('display') === 'grid') {
 					x.style.setProperty('display', 'none');
 				}
 			}
@@ -164,22 +164,18 @@
 			</div>
 			
 			<div id="menuSwitch" class="menuSwitch">
-				<div id="hiddenMenu1" class="hiddenMenu1">
-					<div id="hiddenMenu2" class="hiddenMenu2">
+				<div id="hiddenMenu" class="hiddenMenu">
 						<input class="button löschen" value="Löschen" type="button" onclick='javascript:deleteItem()'>
-						<input class="button dueDate" value="Due Date" type="button" onclick='javascript:nothing()'>
-						<input class="button priorität" value="Priorität" type="button" onclick='javascript:nothing()'>
-						<input class="button status" value="Status" type="button" onclick='javascript:nothing()'>
-					</div>
+						<input class="button bearbeiten" value="Bearbeiten" type="button" onclick='javascript:doNothing()'>
+						<input class="button priorität" value="Priorität" type="button" onclick='javascript:doNothing()'>
+						<input class="button status" value="Status" type="button" onclick='javascript:doNothing()'>
 				</div>
 				
-				<div id="hiddenSort1" class="hiddenSort1">
-					<div id="hiddenSort2" class="hiddenSort2">
+				<div id="hiddenSort" class="hiddenSort">
 						<input class="button user" value="User" type="button" onclick='javascript:sort("user")'>
 						<input class="button dueDate" value="dueDate" type="button" onclick='javascript:sort("duedate")'>
 						<input class="button priorität" value="Priorität" type="button" onclick='javascript:sort("prio")'>
-						<input class="button abc" value="ABC" type="button" onclick='javascript:sort("duedate")'>
-					</div>
+						<input class="button abc" value="ABC" type="button" onclick='javascript:sort("abc")'>
 				</div>
 			</div>
 			
