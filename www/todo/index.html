@@ -109,7 +109,7 @@
 					x.style.setProperty('display', 'none');
 				}
 			}
-			if(!event.target.matches('.button-sortieren')){
+			if(!event.target.matches('#bsort')){
 				console.log("2");
 				var x = document.getElementById("hiddenSort1");
 				if (x.style.getPropertyValue('display') === 'block') {
@@ -158,9 +158,9 @@
 			</div>
 			
 			<div id="mainButtons" class="mainButtons">
-				<input class="button-hinzufügen" value="Hinzufügen" type="button" onclick='javascript:addToTodolist()'>
-				<input class="button-liste-löschen" value="Liste löschen" type="button" onclick='javascript:clearList()'> 
-				<input class="button-sortieren" value="Sortieren " type="button" onclick='javascript:showSort()'>
+				<input class="button hinzufügen" value="Hinzufügen" type="button" onclick='javascript:addToTodolist()'>
+				<input class="button liste-löschen" value="Liste löschen" type="button" onclick='javascript:clearList()'> 
+				<input class="button sortieren" id="bsort" value="Sortieren " type="button" onclick='javascript:showSort()'>
 			</div>
 			
 			<div id="menuSwitch" class="menuSwitch">
