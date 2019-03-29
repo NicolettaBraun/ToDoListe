@@ -85,11 +85,10 @@
            PERFORM READ-PARAMETER-VALUE
            MOVE PARAMETER-VALUE TO ITEM-PRIO
 
+
            CALL "TODOLISTE" USING TODO-ACTION
-                                  ACTIVE-USER
-                                  NEW-ITEM-DESCRIPTION
-                                  0
-                                  ITEM-PRIO
+                                  NEW-ITEM
+                                  ITEM-TO-DELETE
                                   WHICH-KIND-SORT
           EXIT.
 
@@ -97,10 +96,8 @@
           MOVE "pos" TO PARAMETER-NAME
           PERFORM READ-PARAMETER-VALUE
           CALL "TODOLISTE" USING TODO-ACTION
-                                 ACTIVE-USER
-                                 0
+                                 NEW-ITEM
                                  ITEM-TO-DELETE
-                                 0
                                  WHICH-KIND-SORT
 
           EXIT.
@@ -119,10 +116,8 @@
       *    DISPLAY PARAMETER-VALUE UPON SYSERR
           MOVE "user" TO WHICH-KIND-SORT
           CALL "TODOLISTE" USING TODO-ACTION
-                                 ACTIVE-USER
-                                 0
-                                 0
-                                 0
+                                 NEW-ITEM
+                                 ITEM-TO-DELETE
                                  WHICH-KIND-SORT
           EXIT.
 

@@ -43,6 +43,7 @@
 			self.xmlHttpReq.send(qstr);
 			setTimeout(showTodoList(), 250);
 			console.log(qstr);
+			getDate();
 		}
 		function showTodoList() {
 			initXmlRequests();
@@ -95,29 +96,14 @@
 				}
 			}
 		}
-		
-		function getDate() {
-			var today = new Date();
-			var dd = today.getDate();
-			var mm = today.getMonth()+1; //January is 0!
-			var yyyy = today.getFullYear();
-
-			if(dd<10) {
-				dd = '0'+dd
-			} 
-
-			if(mm<10) {
-				mm = '0'+mm
-			} 
-
-			today = yyyy + '/' + mm + '/' + dd;
-			console.log(today);
-			document.getElementById("dueDate").value = today;
-		}
-		window.onload = function() {
+		document.addEventListener("DOMContentLoaded", function() {
 			getDate();
-		};
-		
+		});
+		function getDate() {
+			var date = new Date();
+			var currentDate = date.toISOString().slice(0,10);
+			document.getElementById('dueDate').value = currentDate;
+		}
 		
 		window.onload = showTodoList;
 		</script>
@@ -128,39 +114,42 @@
 	<body>
 		Eine ToDo Liste in COBOL<br><p>
 		
-		<form id="input" class="input">
-			<div>
-				<p>ToDo:  <input value="ToDo" type="text" id="content" class="content"> </p>
-				<p>User:  <select id="user" class="user">
-							<option value="Tick" selected>Tick</option>
-							<option value="Trick">Trick</option>
-							<option value="Track">Track</option>
-							<option value="others">others</option>
-						</select> </p>
-				<p>DueDate:  <input type="date" id="dueDate" class="dueDate"> </p>
-				
-				
-				<p>Priorität:  <select id="priorität" class="priorität">
-						  <option value="5">Hoch</option>
-						  <option value="4">Mittel</option>
-						  <option value="3">Niedrig</option>
-						  <option value="2" selected>-------</option>
-						</select></p>
+		<form id="form" class="form">
+			<div id="input" class="input">
+				<div id="eingabe" class="eingabe">
+					<p>ToDo:  <input value="ToDo" type="text" id="content" class="content"> </p>
+					<p>User:  <select id="user" class="user">
+								<option value="Tick" selected>Tick</option>
+								<option value="Trick">Trick</option>
+								<option value="Track">Track</option>
+								<option value="others">others</option>
+							</select> </p>
+					<p>DueDate:  <input type="date" id="dueDate" class="dueDate"> </p>
+					
+					
+					<p>Priorität:  <select id="priorität" class="priorität">
+							  <option value="5">Hoch</option>
+							  <option value="4">Mittel</option>
+							  <option value="3">Niedrig</option>
+							  <option value="2" selected>-------</option>
+							</select></p>
+				</div>
 			</div>
+			
+			<div id="mainButtons" class="mainButtons">
+				<input class="button hinzufügen" value="Hinzufügen" type="button" onclick='javascript:addToTodolist()'>
+				<input class="button liste-löschen" value="Liste löschen" type="button" onclick='javascript:clearList()'> 
+				<input class="button sortieren" value="Sortieren " type="button" onclick='javascript:sortUser()'>
+			</div>
+			
+			<div id="hiddenMenu" class="hiddenMenu">
+				<input class="button löschen" value="Löschen" type="button" onclick='javascript:deleteItem()'>
+				<input class="button dueDate" value="Due Date" type="button" onclick='javascript:nothing()'>
+				<input class="button priorität" value="Priorität" type="button" onclick='javascript:nothing()'>
+				<input class="button status" value="Status" type="button" onclick='javascript:nothing()'>
+			</div>
+		
 		</form>
-		
-		<p>
-		<input class="button hinzufügen" value="Hinzufügen" type="button" onclick='javascript:addToTodolist()'>
-		<input class="button liste-löschen" value="Liste löschen" type="button" onclick='javascript:clearList()'>
-		<input class="button sortieren" value="Sortieren " type="button" onclick='javascript:sortUser()'>
-		</p>
-		
-		<div id="hiddenMenu" class="hiddenMenu">
-			<input class="ddm" value="Löschen" type="button" onclick='javascript:deleteItem()'>
-			<input class="ddm" value="Due Date" type="button" onclick='javascript:nothing()'>
-			<input class="ddm" value="Priorität" type="button" onclick='javascript:nothing()'>
-			<input class="ddm" value="Status" type="button" onclick='javascript:nothing()'>
-		</div>
 				
 		<div id="result" class="result"></div>
 	</body>

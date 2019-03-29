@@ -2,6 +2,10 @@ li {
 	float: left; 
 	clear: both;
 }
+.form{
+	display: grid;
+	grid-template-columns: 290px 140px 140px;
+}
 .input{
 	background: #d1d8e0;
 	margin-left: 20px;
@@ -11,24 +15,27 @@ li {
     padding-top: 0.1em;
     padding-left: 1em;
 }
-.input div{
+.eingabe{
 	transform: rotate(3deg);
 	padding-left: 8px;
 	
 }
-.button{
-	padding: 0.6em;
-	border: none;
-	background: #26de81;
-	width: 100px;
-	border-radius: 20px;
-	color:#fff;
-	font-weight: 600;
-	
+.mainButtons{
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr 1fr;
 	
 }
-
+.button{
+	border: none;
+	background: #26de81;
+	width: 120px;
+	height: 35px;
+	border-radius: 25px;
+	color:#fff;
+	font-weight: 600;
+}
 .hiddenMenu {
-	visibility: hidden;
-	
+	visibility: hidden;	
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr 1fr;
 }
