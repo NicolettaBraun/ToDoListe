@@ -10,8 +10,6 @@
          SELECT PRINT-FILE ASSIGN TO 'todolist.txt'
             ORGANIZATION IS LINE SEQUENTIAL.
          SELECT TDLIST-WORK ASSIGN TO 'wrk.txt'.
-         SELECT TDLIST-2 ASSIGN TO 'tdlist-2.txt'
-            ORGANIZATION IS LINE SEQUENTIAL.
        DATA DIVISION.
        FILE SECTION.
           FD TDLIST.
