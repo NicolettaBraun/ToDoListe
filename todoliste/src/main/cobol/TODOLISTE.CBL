@@ -184,7 +184,6 @@
 
        DISPLAY-ITEM SECTION.
          DISPLAY "<li "
-      *   "onClick='javascript:deleteItem("WS-POSITION")'"
          "onClick='javascript:showMenu("ITEM-ID in WS-TDLIST")'"
          "class='testClass'"
          "'>"
@@ -200,7 +199,6 @@
          DISPLAY SPACE USER IN WS-TDLIST
          SPACE
          DESCRIPTION IN WS-TDLIST
-      *  "<input value='test' type='button'>"
          "</li>"
          EXIT.
 
