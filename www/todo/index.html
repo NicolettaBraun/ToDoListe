@@ -15,7 +15,7 @@
 			else if (window.ActiveXObject) {
 				self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
 			}
-			self.xmlHttpReq.open('POST', 'http://' + location.host + '/cgi-bin/todohandler', true);
+			self.xmlHttpReq.open('POST', 'http://' + location.host + '/cgi-bin/todohandler', false);
 			self.xmlHttpReq.setRequestHeader('Content-Type',
 			'application/x-www-form-urlencoded');
 			self.xmlHttpReq.onreadystatechange = function() {
@@ -41,7 +41,7 @@
 			qstr = qstr + "&prio=" + prio + "\n"
 			
 			self.xmlHttpReq.send(qstr);
-			setTimeout(showTodoList(), 250);
+			showTodoList();
 			console.log(qstr);
 			getDate();
 		}
@@ -114,10 +114,12 @@
 	<body>
 		Eine ToDo Liste in COBOL<br><p>
 		
-		<form id="form" class="form">
+		<div id="form" class="form">
 			<div id="input" class="input">
 				<div id="eingabe" class="eingabe">
-					<p>ToDo:  <input value="ToDo" type="text" id="content" class="content"> </p>
+					<p>ToDo:  <input value="ToDo" type="text" id="content" class="content"
+								onkeypress = "if (event.keyCode == 13)
+												javascript:'addToTodolist()'"> </p>
 					<p>User:  <select id="user" class="user">
 								<option value="Tick" selected>Tick</option>
 								<option value="Trick">Trick</option>
@@ -149,7 +151,7 @@
 				<input class="button status" value="Status" type="button" onclick='javascript:nothing()'>
 			</div>
 		
-		</form>
+		</div>
 				
 		<div id="result" class="result"></div>
 	</body>
