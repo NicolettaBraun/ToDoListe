@@ -105,27 +105,25 @@
 
 
        ADD-TODOLIST-ENTRY SECTION.
-          PERFORM READ-ITEM
+           PERFORM READ-ITEM
            MOVE FUNCTION CURRENT-DATE TO ADDED
 
 
            CALL "TODOLISTE" USING TODO-ACTION
                                   TD-ITEM
-                                  ITEM-TO-DELETE
                                   WHICH-KIND-SORT
           EXIT.
 
        READ-POS SECTION.
           MOVE "pos" TO PARAMETER-NAME
           PERFORM READ-PARAMETER-VALUE
-          MOVE PARAMETER-VALUE TO ITEM-TO-DELETE
+          MOVE PARAMETER-VALUE TO ITEM-ID
           EXIT.
 
        DELETE-ITEM SECTION.
           PERFORM READ-POS
           CALL "TODOLISTE" USING TODO-ACTION
                                  TD-ITEM
-                                 ITEM-TO-DELETE
                                  WHICH-KIND-SORT
 
           EXIT.
@@ -145,7 +143,6 @@
           MOVE PARAMETER-VALUE TO WHICH-KIND-SORT
           CALL "TODOLISTE" USING TODO-ACTION
                                  TD-ITEM
-                                 ITEM-TO-DELETE
                                  WHICH-KIND-SORT
           EXIT.
 
@@ -154,7 +151,6 @@
           PERFORM READ-POS
           CALL "TODOLISTE" USING TODO-ACTION
                                  TD-ITEM
-                                 ITEM-TO-DELETE
                                  WHICH-KIND-SORT
           EXIT.
 

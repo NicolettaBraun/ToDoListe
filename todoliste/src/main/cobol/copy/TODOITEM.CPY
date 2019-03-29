@@ -21,5 +21,4 @@
                 20  DUE-MINUTE       PIC 9(02).
           10 CATEGORY PIC 9.
           10 DESCRIPTION PIC X(35).
-       01 ITEM-TO-DELETE PIC 9(5).
        01 WHICH-KIND-SORT PIC X(10).
