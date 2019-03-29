@@ -41,33 +41,6 @@
                          20  DUE-MILLISECONDS PIC 9(02).
               10 CATEGORY PIC 9.
               10 DESCRIPTION PIC X(35).
-          FD TDLIST-2.
-          01 TDLIST-FILE-2.
-              10 ITEM-ID-2 PIC 9(3).
-              10 USER-2 PIC X(10).
-              10 PRIO-2 PIC X.
-              10 ADDED-2.
-                    15 ADDED-DATE-2.
-                         20  ADDED-YEAR-2         PIC 9(04).
-                         20  ADDED-MONTH-2        PIC 9(02).
-                         20  ADDED-DAY-2          PIC 9(02).
-                    15 ADDED-TIME-2.
-                         20  ADDED-HOURS-2        PIC 9(02).
-                         20  ADDED-MINUTE-2       PIC 9(02).
-                         20  ADDED-SECOND-2       PIC 9(02).
-                         20  ADDED-MILLISECONDS-2 PIC 9(02).
-              10 DUE-2.
-                    15 DUE-DATE-2.
-                         20  DUE-YEAR-2         PIC 9(04).
-                         20  DUE-MONTH-2        PIC 9(02).
-                         20  DUE-DAY-2          PIC 9(02).
-                    15 DUE-TIME-2.
-                         20  DUE-HOURS-2        PIC 9(02).
-                         20  DUE-MINUTE-2       PIC 9(02).
-                         20  DUE-SECOND-2       PIC 9(02).
-                         20  DUE-MILLISECONDS-2 PIC 9(02).
-              10 CATEGORY-2 PIC 9.
-              10 DESCRIPTION-2 PIC X(35).
           SD TDLIST-WORK.
           01 TDLIST-FILE-W.
               10 ITEM-ID-W PIC 9(3).
@@ -306,8 +279,12 @@
          EVALUATE WHICH-KIND-SORT
          WHEN "user"
            PERFORM SORT-USER
-         WHEN "category"
-           PERFORM SORT-CATEGORY
+         WHEN "prio"
+           PERFORM SORT-PRIO
+         WHEN "abc"
+           PERFORM SORT-ABC
+         WHEN "duedate"
+           PERFORM SORT-DUEDATE
          END-EVALUATE
          EXIT.
 
@@ -317,8 +294,20 @@
          GIVING TDLIST
          EXIT.
 
-       SORT-CATEGORY SECTION.
-         SORT TDLIST-WORK ON ASCENDING KEY CATEGORY IN TDLIST-FILE
+       SORT-PRIO SECTION.
+         SORT TDLIST-WORK ON ASCENDING KEY PRIO IN TDLIST-FILE
+         USING TDLIST
+         GIVING TDLIST
+         EXIT.
+       
+       SORT-ABC SECTION.
+         SORT TDLIST-WORK ON ASCENDING KEY DESCRIPTION IN TDLIST-FILE
+         USING TDLIST
+         GIVING TDLIST
+         EXIT.
+
+       SORT-DUEDATE SECTION.
+         SORT TDLIST-WORK ON ASCENDING KEY DUE-DATE IN TDLIST-FILE
          USING TDLIST
          GIVING TDLIST
          EXIT.
