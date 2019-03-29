@@ -46,7 +46,6 @@
               10 ADDED-W.
                     15 ADDED-DATE-W.
                          20  ADDED-YEAR-W         PIC 9(04).
-                         20  FILLER             PIC X(01)  VALUE "-".
                          20  ADDED-MONTH-W        PIC 9(02).
                          20  ADDED-DAY-W          PIC 9(02).
                     15 ADDED-TIME-W.
@@ -57,7 +56,6 @@
               10 DUE-W.
                     15 DUE-DATE-W.
                          20  DUE-YEAR-W         PIC 9(04).
-                         20  DUE              PIC X(01)  VALUE "-".
                          20  DUE-MONTH-W        PIC 9(02).
                          20  DUE-DAY-W          PIC 9(02).
                     15 DUE-TIME-W.
@@ -182,14 +180,17 @@
          "onClick='javascript:showMenu("ITEM-ID in WS-TDLIST")'"
          "class='testClass'"
          "'>"
-         
+
          PERFORM DISPLAY-PRIO
- 
+
          DISPLAY ITEM-ID IN WS-TDLIST "." SPACE
 
          DISPLAY SPACE
 
-         MOVE ADDED IN WS-TDLIST TO DISPLAY-DATE-TIME
+      *   MOVE ADDED IN WS-TDLIST TO DISPLAY-DATE-TIME
+      *   PERFORM DISPLAY-FORMATTED-TIME
+
+         MOVE DUE IN WS-TDLIST TO DISPLAY-DATE-TIME
          PERFORM DISPLAY-FORMATTED-TIME
 
          DISPLAY SPACE USER IN WS-TDLIST
