@@ -187,9 +187,10 @@
          "onClick='javascript:showMenu("ITEM-ID in WS-TDLIST")'"
          "class='testClass'"
          "'>"
-         DISPLAY ITEM-ID IN WS-TDLIST "." SPACE
-
+         
          PERFORM DISPLAY-PRIO
+ 
+         DISPLAY ITEM-ID IN WS-TDLIST "." SPACE
 
          DISPLAY SPACE
 
@@ -199,7 +200,7 @@
          DISPLAY SPACE USER IN WS-TDLIST
          SPACE
          DESCRIPTION IN WS-TDLIST
-         "</li>"
+         "</font></li>"
          EXIT.
 
        DISPLAY-FORMATTED-TIME SECTION.
@@ -214,11 +215,11 @@
 
        DISPLAY-PRIO SECTION.
           EVALUATE PRIO IN WS-TDLIST
-             WHEN "5" DISPLAY "Hoch"
-             WHEN "4" DISPLAY "Mittel"
-             WHEN "3" DISPLAY "Niedrig"
-             WHEN "2" DISPLAY "Ignoriert"
-             WHEN "0" DISPLAY "Erledigt"
+             WHEN "5" DISPLAY "<font color='red'> Hoch"
+             WHEN "4" DISPLAY "<font color='yellow'> Mittel"
+             WHEN "3" DISPLAY "<font color='green'> Gering"
+             WHEN "2" DISPLAY "<font color='black'> Egal"
+             WHEN "0" DISPLAY "<font color='blue'> Erledigt"
              WHEN OTHER DISPLAY SPACE
           END-EVALUATE
          EXIT.

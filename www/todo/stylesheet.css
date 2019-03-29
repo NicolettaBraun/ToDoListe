@@ -1,6 +1,8 @@
 li {
 	float: left; 
 	clear: both;
+	list-style-type: square;
+	
 }
 .form{
 	display: grid;
