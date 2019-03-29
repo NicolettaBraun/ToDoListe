@@ -36,8 +36,26 @@ li {
 	color:#fff;
 	font-weight: 600;
 }
-.hiddenMenu {
-	visibility: hidden;	
+.hiddenMenu1 {
+	display: none;	
+}
+.hiddenSort1 {
+	display: none;	
+}
+.hiddenMenu2 {
 	display: grid;
 	grid-template-rows: 1fr 1fr 1fr 1fr;
 }
+.hiddenSort2 {
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr 1fr;	
+}
+
+
+
+
+
+
+
+
+

@@ -62,7 +62,7 @@
 			qstr = "pos=" + padLeft(globVarElement,5);
 			qstr = qstr + "&action=deleteitem\n"
 			self.xmlHttpReq.send(qstr);
-			initXmlRequests();
+			showTodoList();
 			console.log(qstr);
 		}
 		function updatepage(str){
@@ -71,11 +71,12 @@
 		function padLeft(nr, n, str){
 			return Array(n-String(nr).length+1).join(str||'0')+nr;
 		}
-		function sortUser(){
+		function sort(str){
 			initXmlRequests();
-			qstr = "sorttype=" + "user";
+			qstr = "sorttype=" + str;
 			qstr = qstr + "&action=sort\n";
 			self.xmlHttpReq.send(qstr);
+			showTodoList();
 			console.log(qstr);
 		}
 		function nothing(){
@@ -85,20 +86,28 @@
 		globVarElement = "00000";
 		function showMenu(str){
 			globVarElement = str;
-			var x = document.getElementById('hiddenMenu');
-			if (x.style.visibility === 'hidden') {
-				x.style.visibility = 'visible';
+			var x = document.getElementById('hiddenMenu1');
+			if (x.style.getPropertyValue('display') === 'block') {
+				x.style.setProperty('display', 'none');
 			} else {
-				x.style.visibility = 'hidden';
+				x.style.setProperty('display', 'block');
+			}
+		}
+		function showSort(){
+			var x = document.getElementById('hiddenSort1');
+			if (x.style.getPropertyValue('display') === 'block') {
+				x.style.setProperty('display', 'none');
+			} else {
+				x.style.setProperty('display', 'block');
 			}
 		}
 		window.onclick = function(event) {
-			if (!event.target.matches('.testClass')&&!event.target.matches('.input')) {	
+			if (!event.target.matches('.menuSwitch')) {	
 				console.log("1");
-				var x = document.getElementById("hiddenMenu");
-				if (x.style.visibility === 'visible') {
-					x.style.visibility = 'hidden';
-				}
+				var x = document.getElementById("hiddenMenu1");
+				x.style.setProperty('display', 'none');
+				var x = document.getElementById("hiddenSort1");
+				x.style.setProperty('display', 'none');
 			}
 		}
 		document.addEventListener("DOMContentLoaded", function() {
@@ -144,18 +153,30 @@
 			<div id="mainButtons" class="mainButtons">
 				<input class="button hinzufügen" value="Hinzufügen" type="button" onclick='javascript:addToTodolist()'>
 				<input class="button liste-löschen" value="Liste löschen" type="button" onclick='javascript:clearList()'> 
-				<input class="button sortieren" value="Sortieren " type="button" onclick='javascript:sortUser()'>
+				<input class="button sortieren" value="Sortieren " type="button" onclick='javascript:showSort()'>
 			</div>
 			
-			<div id="hiddenMenu" class="hiddenMenu">
-				<input class="button löschen" value="Löschen" type="button" onclick='javascript:deleteItem()'>
-				<input class="button dueDate" value="Due Date" type="button" onclick='javascript:nothing()'>
-				<input class="button priorität" value="Priorität" type="button" onclick='javascript:nothing()'>
-				<input class="button status" value="Status" type="button" onclick='javascript:nothing()'>
-			</div>
-		
-		</div>
+			<div id="menuSwitch" class="menuSwitch">
+				<div id="hiddenMenu1" class="hiddenMenu1">
+					<div id="hiddenMenu2" class="hiddenMenu2">
+						<input class="button löschen" value="Löschen" type="button" onclick='javascript:deleteItem()'>
+						<input class="button dueDate" value="Due Date" type="button" onclick='javascript:nothing()'>
+						<input class="button priorität" value="Priorität" type="button" onclick='javascript:nothing()'>
+						<input class="button status" value="Status" type="button" onclick='javascript:nothing()'>
+					</div>
+				</div>
 				
+				<div id="hiddenSort1" class="hiddenSort1">
+					<div id="hiddenSort2" class="hiddenSort2">
+						<input class="button user" value="User" type="button" onclick='javascript:sort("user")'>
+						<input class="button dueDate" value="dueDate" type="button" onclick='javascript:sort("duedate")'>
+						<input class="button priorität" value="Priorität" type="button" onclick='javascript:sort("prio")'>
+						<input class="button abc" value="ABC" type="button" onclick='javascript:sort("duedate")'>
+					</div>
+				</div>
+			</div>
+			
+		</div>	
 		<div id="result" class="result"></div>
 	</body>
 </html>
