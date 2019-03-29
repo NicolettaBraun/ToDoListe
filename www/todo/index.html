@@ -102,12 +102,19 @@
 			}
 		}
 		window.onclick = function(event) {
-			if (!event.target.matches('.menuSwitch')) {	
+			if (!event.target.matches('.testClass')) {	
 				console.log("1");
 				var x = document.getElementById("hiddenMenu1");
-				x.style.setProperty('display', 'none');
+				if (x.style.getPropertyValue('display') === 'block') {
+					x.style.setProperty('display', 'none');
+				}
+			}
+			if(!event.target.matches('.button-sortieren')){
+				console.log("2");
 				var x = document.getElementById("hiddenSort1");
-				x.style.setProperty('display', 'none');
+				if (x.style.getPropertyValue('display') === 'block') {
+					x.style.setProperty('display', 'none');
+				}
 			}
 		}
 		document.addEventListener("DOMContentLoaded", function() {
@@ -151,9 +158,9 @@
 			</div>
 			
 			<div id="mainButtons" class="mainButtons">
-				<input class="button hinzufügen" value="Hinzufügen" type="button" onclick='javascript:addToTodolist()'>
-				<input class="button liste-löschen" value="Liste löschen" type="button" onclick='javascript:clearList()'> 
-				<input class="button sortieren" value="Sortieren " type="button" onclick='javascript:showSort()'>
+				<input class="button-hinzufügen" value="Hinzufügen" type="button" onclick='javascript:addToTodolist()'>
+				<input class="button-liste-löschen" value="Liste löschen" type="button" onclick='javascript:clearList()'> 
+				<input class="button-sortieren" value="Sortieren " type="button" onclick='javascript:showSort()'>
 			</div>
 			
 			<div id="menuSwitch" class="menuSwitch">
